@@ -5,7 +5,7 @@ public class StudentDAO {
 	private int studentPersonId;
 	private int registerNumber;
 	private int admissionNumber; 
-	private int studentAddressID;
+	private int studentAddressId;
 	private String createdDate;
 	private String updatedDate;
 	private int activeInd;
@@ -34,11 +34,11 @@ public class StudentDAO {
 	public void setAdmissionNumber(int admissionNumber) {
 		this.admissionNumber = admissionNumber;
 	}
-	public int getStudentAddressID() {
-		return studentAddressID;
+	public int getStudentAddressId() {
+		return studentAddressId;
 	}
-	public void setStudentAddressID(int studentAddressID) {
-		this.studentAddressID = studentAddressID;
+	public void setStudentAddressId(int studentAddressId) {
+		this.studentAddressId = studentAddressId;
 	}
 	public String getCreatedDate() {
 		return createdDate;

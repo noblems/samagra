@@ -36,4 +36,9 @@ public class StudentController {
 		 StudentService service=new StudentService();
 		 service.insertStudent(student);
 	 }
+	 @RequestMapping(value="/deleteStudentById")
+	 public void deleteStudentById(@RequestParam(value="Id")int id) throws IOException {
+		 StudentService service=new StudentService();
+		 service.deleteStudent(id);
+	 }
 }
