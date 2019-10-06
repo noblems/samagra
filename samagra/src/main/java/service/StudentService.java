@@ -1,16 +1,23 @@
 package service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import dto.Student;
+import entity.PersonDAO;
 import entity.StudentDAO;
+import mappers.PersonMapper;
 import mappers.StudentMapper;
 import service.MyBatisUtil;
 
 public class StudentService {
 	
-	/*public void insertPerson(PersonDAO person) {
+	private List<Student> students;
+
+	public void insertPerson(PersonDAO person) {
 		  SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		  try{
 		  PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
@@ -20,8 +27,31 @@ public class StudentService {
 		   sqlSession.close();
 		  }
 		 }
+	public void insertStudent(Student student) {
+		  SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+		  try{
+		  PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+		  StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
+		  PersonDAO personDao=new PersonDAO();
+		  StudentDAO studentDao=new StudentDAO();
+		  //personDao.setFirstName(student.getFirstName());
+		  
+		  studentDao.setStudentPersonId(100);
+		  studentDao.setRegisterNumber(student.getRegisterNumber());
+		  studentDao.setAdmissionNumber(student.getAdmissionNumber());
+		  studentDao.setStudentAddressID(1);
+		  studentDao.setCreatedDate(new Date().toString());
+		  studentDao.setUpdatedDate(new Date().toString());
+		  studentDao.setActiveInd(1);
+		  studentMapper.insertStudent(studentDao);
+		  //personMapper.insertPerson(personDao);
+		  sqlSession.commit();
+		  }finally{
+		   sqlSession.close();
+		  }
+		 }
 		 
-		 public PersonDAO getpersonById(Integer personId) {
+		 /*public PersonDAO getpersonById(Integer personId) {
 		  SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		  try{
 		  PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
@@ -29,26 +59,53 @@ public class StudentService {
 		  }finally{
 		   sqlSession.close();
 		  }
-		 }
-		 */
-		 public String getAllStudent() {
+		 }*/
+		 public Student getStudentById(Integer studentId) {
+			  SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+			  try{
+				  Student student=new Student();
+				  PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+				  StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+				  student.setStudentId(studentMapper.getStudentById(studentId).getStudentId());
+				  student.setRegisterNumber(studentMapper.getStudentById(studentId).getRegisterNumber());
+				  student.setAdmissionNumber(studentMapper.getStudentById(studentId).getAdmissionNumber());
+				  student.setFirstName(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getLastName());
+				  student.setMiddleName(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getMiddleName());
+				  student.setLastName(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getLastName());
+				  student.setDOB(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getDOB());
+				  student.setSex(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getSex());
+				  student.setPersonID(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getPersonId());
+				  
+				  return student;
+			  }finally{
+			   sqlSession.close();
+			  }
+			 }
+		 
+		 	public List<Student> getAllStudent() {
 		  SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
-		  String students="hello\n";
+		  
 		  try{
-			  //PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+			  List<Student>students = new ArrayList<Student>();
+			  PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
 			  StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
 			  List<StudentDAO> studentDao=studentMapper.getAllStudent();
-			  
+			  System.out.println(studentDao.size());
 			  //Iterator studentIterator =  studentDao.iterator();
 			  for(int i=0;i<studentDao.size();i++){
-				  students.concat(Integer.toString(studentDao.get(i).getStudentId()));
-				  students.concat("\n");
-				  students.concat(studentDao.get(i).getCreatedDate());
-				  students.concat("\n");
-				  /*Student studentDto=new Student();
-				  PersonDAO personDao=personMapper.getPersonById(studentDao.get(i).getStudentPersonId());
-				  studentDto.setStudentId(100);//studentDao.get(i).getStudentId());
-				  students.add(studentDto);*/
+				  Student student=new Student();
+				  student.setStudentId(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentId());
+				  student.setRegisterNumber(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getRegisterNumber());
+				  student.setAdmissionNumber(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getAdmissionNumber());
+				  System.out.println("here");
+				  student.setFirstName(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getLastName());
+				  student.setMiddleName(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getMiddleName());
+				  student.setLastName(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getLastName());
+				  student.setDOB(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getDOB());
+				  student.setSex(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getSex());
+				  student.setPersonID(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getPersonId());
+				  students.add(student);
+				  System.out.println("here too");
 			  }
 			  return students;
 			  

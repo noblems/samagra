@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dto.Student;
@@ -21,8 +22,18 @@ public class StudentController {
 		 return "Student is working fine";
 	 }
 	 @RequestMapping(value="/getAllStudents")
-	 public String getAllStudents() {
+	 public List<Student> getAllStudents() {
 		 StudentService service=new StudentService();
 		 return service.getAllStudent();
+	 }
+	 @RequestMapping(value="/getStudentById")
+	 public Student getStudentById(@RequestParam(value="Id")int id) throws IOException {
+		 StudentService service=new StudentService();
+		 return service.getStudentById(id);
+	 }
+	 @RequestMapping(value="/insertStudent",method=RequestMethod.POST,consumes=MediaType.APPLICATION_XML_VALUE)
+	 public void insertStudent(@RequestBody Student student) throws IOException {
+		 StudentService service=new StudentService();
+		 service.insertStudent(student);
 	 }
 }

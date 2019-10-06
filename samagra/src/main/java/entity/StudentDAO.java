@@ -9,6 +9,7 @@ public class StudentDAO {
 	private String createdDate;
 	private String updatedDate;
 	private int activeInd;
+	
 	public int getStudentId() {
 		return studentId;
 	}

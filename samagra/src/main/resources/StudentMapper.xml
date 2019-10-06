@@ -25,12 +25,13 @@
    SELECT * FROM STUDENT
   </select> 
  
-  <!--<insert id="insertUsers" parameterType="domain.Users" useGeneratedKeys="true" keyProperty="userId">
-   INSERT INTO USERS(email_id, password, first_name, last_name)
-    VALUES(#{emailId}, #{password}, #{firstName}, #{lastName})
+  <insert id="insertStudent" parameterType="Student" useGeneratedKeys="true" keyProperty="studentId">
+   INSERT INTO STUDENT( studentPersonId, registerNumber, admissionNumber, 
+            studentAddressId, createDdate, updatedDate, activeInd)
+    VALUES(#{studentPersonId}, #{registerNumber}, #{admissionNumber}, #{studentAddressId},, #{createDdate}, #{updatedDate}, #{activeInd})
   </insert>
  
-   <update id="updateUser" parameterType="domain.Users">
+   <!--<update id="updateUser" parameterType="domain.Users">
     UPDATE USERS 
     SET
      PASSWORD= #{password},
