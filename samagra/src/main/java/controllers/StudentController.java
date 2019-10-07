@@ -43,6 +43,8 @@ public class StudentController {
 	 @RequestMapping(value="/updateStudentById")
 	 public void updateStudentById(@RequestParam(value="Id")int id,@RequestBody Student student) throws IOException {
 		 StudentService service=new StudentService();
+		 System.out.print(id);
 		 service.updateStudent(id,student);
 	 }
+	 
 }
