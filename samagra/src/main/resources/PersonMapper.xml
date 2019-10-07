@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="mappers.PersonMapper">
+ 
+   <select id="getPersonById" parameterType="int" resultType="Person">
+     SELECT  *
+     FROM Person 
+     WHERE personId = #{personId}
+  </select> 
+  
+   <resultMap type="Person" id="PersonResult">
+    <id property="personId" column="personId"/>
+    <result property="firstName" column="firstName"/>
+    <result property="middleName" column="middleName"/>
+    <result property="lastName" column="lastName"/>
+    <result property="DOB" column="DOB"/>  
+    <result property="sex" column="sex"/> 
+    <result property="createdDate" column="createdDate"/> 
+    <result property="updatedDate" column="updatedDate"/> 
+    <result property="activeInd" column="activeInd"/> 
+   </resultMap>
+ 
+   <select id="getAllPerson" resultMap="PersonResult">
+   SELECT * FROM PERSON WHERE activeInd !=0
+  </select> 
+ 
+  <insert id="insertPerson" parameterType="Person" useGeneratedKeys="true" keyProperty="personId">
+   INSERT INTO PERSON(
+             firstName, middleName, lastName, DOB, sex, createdDate, 
+            updatedDate, activeInd)
+    VALUES(#{firstName}, #{middleName}, #{lastName}, #{DOB}, #{sex}, #{createdDate}, #{updatedDate}, #{activeInd})
+  </insert>
+ 
+   <!-- <update id="updatePerson" parameterType="Person">
+    UPDATE USERS 
+    SET
+     PASSWORD= #{password},
+     FIRST_NAME = #{firstName},
+     LAST_NAME = #{lastName}
+    WHERE USER_ID = #{userId}
+  </update>-->
+ 
+  <delete id="deletePerson" parameterType="java.lang.Integer">
+    UPDATE PERSON SET activeInd=0 WHERE personId = #{personId}
+  </delete> 
+
+</mapper>
