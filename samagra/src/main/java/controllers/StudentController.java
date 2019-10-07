@@ -40,4 +40,9 @@ public class StudentController {
 		 StudentService service=new StudentService();
 		 service.deleteStudent(id);
 	 }
+	 @RequestMapping(value="/updateStudentById")
+	 public void updateStudentById(@RequestParam(value="Id")int id,@RequestBody Student student) throws IOException {
+		 StudentService service=new StudentService();
+		 service.updateStudent(id,student);
+	 }
 }

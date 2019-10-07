@@ -122,6 +122,27 @@ public class StudentService {
 			sqlSession.close();
 		}
 	}
+	public void updateStudent(int studentId,Student student) {
+		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+		try{
+			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
+			PersonDAO personDao=new PersonDAO();
+			StudentDAO studentDao=new StudentDAO();
+			personDao.setPersonId(student.getPersonID());
+			personDao.setFirstName(student.getFirstName());
+			personDao.setMiddleName(student.getMiddleName());
+			personDao.setLastName(student.getLastName());
+			personDao.setDOB(student.getDOB());
+			personDao.setSex(student.getSex());
+			personDao.setUpdatedDate(new Date().toString());
+			personMapper.updatePerson(personDao);
+
+			sqlSession.commit();
+		}finally{
+			sqlSession.close();
+		}
+	}
 
 	/* public void updateperson(PersonDAO person) {
 		  SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
