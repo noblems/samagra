@@ -118,7 +118,7 @@ public class StudentService {
 				ad.setAddressId(1);
 				ad.setAddr1("test");
 				ad.setAddr2("test");
-				student.setAddress(ad);
+				/*student.setAddress(ad);*/
 				students.add(student);
 				//System.out.println("here too");
 			}
