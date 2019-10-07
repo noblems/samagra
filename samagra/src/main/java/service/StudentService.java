@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import dto.Address;
 import dto.Student;
 import entity.PersonDAO;
 import entity.StudentDAO;
@@ -98,6 +99,7 @@ public class StudentService {
 			List<Student>students = new ArrayList<Student>();
 			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
 			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
+			Address ad=new Address();
 			List<StudentDAO> studentDao=studentMapper.getAllStudent();
 			System.out.println(studentDao.size());
 			//Iterator studentIterator =  studentDao.iterator();
@@ -113,6 +115,10 @@ public class StudentService {
 				student.setDOB(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getDOB());
 				student.setSex(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getSex());
 				student.setPersonID(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getPersonId());
+				ad.setAddressId(1);
+				ad.setAddr1("test");
+				ad.setAddr2("test");
+				student.setAddress(ad);
 				students.add(student);
 				//System.out.println("here too");
 			}

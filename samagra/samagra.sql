@@ -1,7 +1,7 @@
 --person table for all
 --create table person(personId Serial primary key,firstName varchar, middleName varchar,lastName varchar,DOB varchar, sex varchar(7), createdDate varchar, updatedDate varchar,activeInd int)
 --Address table for all
---create table address(adrressId serial primary key, addressPersonId integer ,Addr1 varchar,Addr2 varchar,Addr3 varchar, city varchar, state varchar,pin varchar,createdDate varchar, updatedDate varchar,activeInd int)
+--create table address(adrressId serial primary key, addressPersonId integer ,addr1 varchar,addr2 varchar,addr3 varchar, city varchar, state varchar,pin varchar,createdDate varchar, updatedDate varchar,activeInd int)
 
 --Student table for first service
 --create table student(studentId serial primary key, studentPersonId integer, registerNumber integer,admissionNumber integer,studentAddressID integer,createdDate varchar, updatedDate varchar,activeInd int)

@@ -23,6 +23,8 @@ public class Student {
 	private String sex;
 	@JacksonXmlProperty
 	private int personID;
+	@JacksonXmlProperty
+	Address address=new Address();
 	public int getStudentId() {
 		return studentId;
 	}
@@ -76,5 +78,11 @@ public class Student {
 	}
 	public void setPersonID(int personID) {
 		this.personID = personID;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }
