@@ -41,6 +41,7 @@ public class StudentService {
 			personDao.setSex(student.getSex());
 			personDao.setCreatedDate(new Date().toString());
 			personDao.setUpdatedDate(new Date().toString());
+			personDao.setActiveInd(1);
 			personMapper.insertPerson(personDao);
 
 
@@ -71,8 +72,9 @@ public class StudentService {
 		 }*/
 	public Student getStudentById(Integer studentId) {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+		Student student=new Student();
 		try{
-			Student student=new Student();
+			
 			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
 			StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
 			student.setStudentId(studentMapper.getStudentById(studentId).getStudentId());
@@ -83,19 +85,24 @@ public class StudentService {
 			student.setLastName(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getLastName());
 			student.setDOB(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getDOB());
 			student.setSex(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getSex());
-			student.setPersonID(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getPersonId());
+			student.setPersonId(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getPersonId());
 
-			return student;
+			
+		}catch(Exception e) {
+			System.out.println("error occurred");
+			student.setStudentId(-1);
+			student.setMessage("No such student available");
 		}finally{
 			sqlSession.close();
 		}
+		return student;
 	}
 
 	public List<Student> getAllStudent() {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
-
+		List<Student>students = new ArrayList<Student>();
 		try{
-			List<Student>students = new ArrayList<Student>();
+			
 			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
 			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
 			List<StudentDAO> studentDao=studentMapper.getAllStudent();
@@ -112,33 +119,51 @@ public class StudentService {
 				student.setLastName(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getLastName());
 				student.setDOB(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getDOB());
 				student.setSex(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getSex());
-				student.setPersonID(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getPersonId());
+				student.setPersonId(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getPersonId());
+				//student.setMessage("helo");
 				students.add(student);
 				//System.out.println("here too");
 			}
-			return students;
+			
 
+		}catch(Exception e) {
+			System.out.println("error occurred");
+			Student studenterror=new Student();
+			studenterror.setStudentId(-1);
+			studenterror.setMessage("No students are available");
+			students.add(studenterror);
 		}finally{
 			sqlSession.close();
+			
 		}
+		return students;
 	}
-	public void updateStudent(int studentId,Student student) {
+	public String updateStudent(int studentId,Student student) {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
 			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
-			PersonDAO personDao=new PersonDAO();
-			StudentDAO studentDao=new StudentDAO();
-			personDao.setPersonId(student.getPersonID());
+			StudentDAO studentDao=studentMapper.getStudentById(studentId);
+			PersonDAO personDao=personMapper.getPersonById(studentDao.getStudentPersonId());
+			//personDao.setPersonId(studentDao.getStudentPersonId());
 			personDao.setFirstName(student.getFirstName());
 			personDao.setMiddleName(student.getMiddleName());
 			personDao.setLastName(student.getLastName());
 			personDao.setDOB(student.getDOB());
 			personDao.setSex(student.getSex());
 			personDao.setUpdatedDate(new Date().toString());
+			
+			studentDao.setAdmissionNumber(student.getAdmissionNumber());
+			studentDao.setRegisterNumber(student.getRegisterNumber());
+			studentDao.setUpdatedDate(new Date().toString());
 			personMapper.updatePerson(personDao);
+			studentMapper.updateStudent(studentDao);
 
 			sqlSession.commit();
+			return "Updated Successfully";
+		}catch(Exception e) {
+			sqlSession.rollback();
+			return "Some error happened check later "+e.getMessage();
 		}finally{
 			sqlSession.close();
 		}
@@ -167,7 +192,7 @@ public class StudentService {
 		  }
 
 		 }*/
-	public void deleteStudent(Integer StudentId) {
+	public String deleteStudent(Integer StudentId) {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
@@ -176,6 +201,10 @@ public class StudentService {
 			studentMapper.deleteStudent(StudentId);
 			
 			sqlSession.commit();
+			return "Updated Successfully";
+		}catch(Exception e) {
+			sqlSession.rollback();
+			return "Some error happened check later "+e.getMessage();
 		}finally{
 			sqlSession.close();
 		}

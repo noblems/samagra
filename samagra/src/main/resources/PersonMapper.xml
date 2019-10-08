@@ -7,7 +7,7 @@
    <select id="getPersonById" parameterType="int" resultType="Person">
      SELECT  *
      FROM Person 
-     WHERE personId = #{personId}
+     WHERE personId = #{personId} AND activeInd!=0
   </select> 
   
    <resultMap type="Person" id="PersonResult">

@@ -36,15 +36,15 @@ public class StudentController {
 		 service.insertStudent(student);
 	 }
 	 @RequestMapping(value="/deleteStudentById")
-	 public void deleteStudentById(@RequestParam(value="Id")int id) throws IOException {
+	 public String deleteStudentById(@RequestParam(value="Id")int id) throws IOException {
 		 StudentService service=new StudentService();
-		 service.deleteStudent(id);
+		 return service.deleteStudent(id);
 	 }
 	 @RequestMapping(value="/updateStudentById")
-	 public void updateStudentById(@RequestParam(value="Id")int id,@RequestBody Student student) throws IOException {
+	 public String updateStudentById(@RequestParam(value="Id")int id,@RequestBody Student student) throws IOException {
 		 StudentService service=new StudentService();
-		 System.out.print(id);
-		 service.updateStudent(id,student);
+		 //System.out.print(id);
+		 return service.updateStudent(id,student);
 	 }
 	 
 }
