@@ -7,10 +7,10 @@ public class PersonDAO {
 	private String firstName;
 	private String middleName;
 	private String lastName;
-	private String DOB;
+	private String dob;
 	private String sex ;
-	private String createdDate; 
-	private String updatedDate; 
+	private Date createdDate; 
+	private Date updatedDate; 
 	private int activeInd;
 	public int getPersonId() {
 		return personId;
@@ -36,28 +36,23 @@ public class PersonDAO {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getDOB() {
-		return DOB;
-	}
-	public void setDOB(String dOB) {
-		DOB = dOB;
-	}
+	
 	public String getSex() {
 		return sex;
 	}
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public String getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	public String getUpdatedDate() {
+	public Date getUpdatedDate() {
 		return updatedDate;
 	}
-	public void setUpdatedDate(String updatedDate) {
+	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 	public int getActiveInd() {
@@ -65,6 +60,12 @@ public class PersonDAO {
 	}
 	public void setActiveInd(int activeInd) {
 		this.activeInd = activeInd;
+	}
+	public String getDob() {
+		return dob;
+	}
+	public void setDob(String dob) {
+		this.dob = dob;
 	} 
 	
 	

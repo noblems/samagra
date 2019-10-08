@@ -42,7 +42,7 @@
   </update>
  
   <delete id="deleteStudent" parameterType="java.lang.Integer">
-    UPDATE STUDENT SET activeInd=0 WHERE studentId = #{studentId}
+    UPDATE STUDENT SET updatedDate=#{updatedDate},activeInd=0 WHERE studentId = #{studentId}
   </delete> 
 
 </mapper>

@@ -1,13 +1,15 @@
 package entity;
 
+import java.util.Date;
+
 public class StudentDAO {
 	private int studentId;
 	private int studentPersonId;
 	private int registerNumber;
 	private int admissionNumber; 
 	private int studentAddressId;
-	private String createdDate;
-	private String updatedDate;
+	private Date createdDate;
+	private Date updatedDate;
 	private int activeInd;
 	
 	public int getStudentId() {
@@ -40,16 +42,16 @@ public class StudentDAO {
 	public void setStudentAddressId(int studentAddressId) {
 		this.studentAddressId = studentAddressId;
 	}
-	public String getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	public String getUpdatedDate() {
+	public Date getUpdatedDate() {
 		return updatedDate;
 	}
-	public void setUpdatedDate(String updatedDate) {
+	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
 	public int getActiveInd() {

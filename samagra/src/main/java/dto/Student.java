@@ -18,11 +18,15 @@ public class Student {
 	@JacksonXmlProperty
 	private String lastName;
 	@JacksonXmlProperty
-	private String DOB;
+	private String dob;
 	@JacksonXmlProperty
 	private String sex;
 	@JacksonXmlProperty
-	private int personID;
+	private int personId;
+	@JacksonXmlProperty
+	private String message="OK";
+	@JacksonXmlProperty
+	Address address=new Address();
 	public int getStudentId() {
 		return studentId;
 	}
@@ -59,22 +63,35 @@ public class Student {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getDOB() {
-		return DOB;
-	}
-	public void setDOB(String dOB) {
-		DOB = dOB;
-	}
+	
 	public String getSex() {
 		return sex;
 	}
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public int getPersonID() {
-		return personID;
+	public int getPersonId() {
+		return personId;
 	}
-	public void setPersonID(int personID) {
-		this.personID = personID;
+	public void setPersonId(int personId) {
+		this.personId = personId;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public String getDob() {
+		return dob;
+	}
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }

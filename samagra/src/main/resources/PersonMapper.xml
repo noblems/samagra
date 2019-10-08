@@ -48,7 +48,7 @@
   </update>
  
   <delete id="deletePerson" parameterType="java.lang.Integer">
-    UPDATE PERSON SET activeInd=0 WHERE personId = #{personId}
+    UPDATE PERSON SET updatedDate=#{updatedDate},activeInd=0 WHERE personId = #{personId}
   </delete> 
 
 </mapper>
