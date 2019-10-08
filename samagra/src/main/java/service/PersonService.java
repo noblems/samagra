@@ -3,7 +3,7 @@ package service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -14,26 +14,25 @@ import mappers.PersonMapper;
 
 public class PersonService {
 
-	public PersonDAO insertPerson(PersonDAO personDao) {
+	public PersonDAO insertPerson(PersonDAO personDao) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
-			personDao.setCreatedDate(new Date());
+			personDao.setCreatedDate(new Date(0));
 			personDao.setActiveInd(1);
 			personMapper.insertPerson(personDao);
 			sqlSession.commit();
 			return personDao;
 		}catch(Exception e) {
 			sqlSession.rollback();
-			PersonDAO personDaoerror=new PersonDAO();
-			personDaoerror.setPersonId(-1);
-			return personDaoerror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 		}
 	}
 	
-	public PersonDAO getpersonById(Integer personId) {
+	public PersonDAO getPersonById(Integer personId) throws Exception {
 		  SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		  try{
 		  PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
@@ -42,15 +41,14 @@ public class PersonService {
 		  return personDao;
 		  }catch(Exception e) {
 				sqlSession.rollback();
-				PersonDAO personDaoerror=new PersonDAO();
-				personDaoerror.setPersonId(-1);
-				return personDaoerror;
+				e.printStackTrace();
+				throw e;
 		}finally{
 		   sqlSession.close();
 		  }
 		 }
 	
-	public List<PersonDAO> getAllPerson() {
+	public List<PersonDAO> getAllPerson() throws Exception {
 		
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 	
@@ -62,69 +60,55 @@ public class PersonService {
 			
 
 		}catch(Exception e) {
-			System.out.println("error occurred");
-			PersonDAO personerror=new PersonDAO();
-			personerror.setPersonId(-1);
-			return (List<PersonDAO>) personerror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 			
 		}
 	}
-	public PersonDAO updatePerson(int personId,PersonDAO personDao) {
+	public PersonDAO updatePerson(int personId,PersonDAO personDao) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
-			personDao.setUpdatedDate(new Date());
+			personDao.setUpdatedDate(new Date(0));
 			personMapper.updatePerson(personDao);
 			sqlSession.commit();
 			return personDao;
 		}catch(Exception e) {
 			sqlSession.rollback();
-			PersonDAO personDaoerror=new PersonDAO();
-			personDaoerror.setPersonId(-1);
-			return personDaoerror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 		}
 	}
 
-	public PersonDAO deletePerson(Integer personId) {
+	public PersonDAO deletePerson(Integer personId) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
 			PersonDAO personDao=personMapper.getPersonById(personId);
-			personDao.setUpdatedDate(new Date());
+			personDao.setUpdatedDate(new Date(0));
 			personMapper.deletePerson(personId);
 			
 			sqlSession.commit();
 			return personDao;
 		}catch(Exception e) {
 			sqlSession.rollback();
-			PersonDAO personDaoerror=new PersonDAO();
-			personDaoerror.setPersonId(-1);
-			return personDaoerror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 		}
 	}
-	public PersonDAO extractPersonFromStudentDto(Student student) {
+	public PersonDAO extractPersonFromStudentDto(Student student)throws Exception {
 		PersonDAO personDao=new PersonDAO();
 		//personDao.setPersonId(studentDao.getStudentPersonId());
 		personDao.setFirstName(student.getFirstName());
 		personDao.setMiddleName(student.getMiddleName());
 		personDao.setLastName(student.getLastName());
-		personDao.setDob(new Date().toString());
-		/*try {
-			
-			DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-			Date dob=df.parse(student.getDob());
-			System.out.println("my unformated is"+student.getDob()+"my formatted dob is"+dob);
-			personDao.setDob(new Date());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+		personDao.setDob(student.getDob());
 		personDao.setSex(student.getSex());
 		return personDao;
 	}

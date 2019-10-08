@@ -15,7 +15,7 @@
     <result property="firstName" column="firstName"/>
     <result property="middleName" column="middleName"/>
     <result property="lastName" column="lastName"/>
-    <result property="DOB" column="DOB"/>  
+    <result property="dob" column="dob"/>  
     <result property="sex" column="sex"/> 
     <result property="createdDate" column="createdDate"/> 
     <result property="updatedDate" column="updatedDate"/> 
@@ -28,9 +28,9 @@
  
   <insert id="insertPerson" parameterType="Person" useGeneratedKeys="true" keyProperty="personId">
    INSERT INTO PERSON(
-             firstName, middleName, lastName, DOB, sex, createdDate, 
+             firstName, middleName, lastName, dob, sex, createdDate, 
             updatedDate, activeInd)
-    VALUES(#{firstName}, #{middleName}, #{lastName}, #{DOB}, #{sex}, #{createdDate}, #{updatedDate}, #{activeInd})
+    VALUES(#{firstName}, #{middleName}, #{lastName}, #{dob}, #{sex}, current_date, #{updatedDate}, #{activeInd})
   </insert>
  
    <update id="updatePerson" parameterType="Person">
@@ -40,15 +40,15 @@
      firstName = #{firstName},
      middleName = #{middleName},
      lastName = #{lastName},
-     DOB = #{DOB},
+     dob = #{dob},
      sex = #{sex},
-     updatedDate = #{updatedDate}
+     updatedDate = current_date
      
     WHERE personId = #{personId}
   </update>
  
   <delete id="deletePerson" parameterType="java.lang.Integer">
-    UPDATE PERSON SET updatedDate=#{updatedDate},activeInd=0 WHERE personId = #{personId}
+    UPDATE PERSON SET updatedDate=current_date,activeInd=0 WHERE personId = #{personId}
   </delete> 
 
 </mapper>

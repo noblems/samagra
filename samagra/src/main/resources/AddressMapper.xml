@@ -31,7 +31,7 @@
    INSERT INTO ADDRESS(
              addressPersonId,addr1, addr2, addr3, city, state,pin, createdDate, 
             updatedDate, activeInd)
-    VALUES(#{addressPersonId},#{addr1}, #{addr2}, #{addr3}, #{city}, #{state},#{pin}, #{createdDate}, #{updatedDate}, #{activeInd})
+    VALUES(#{addressPersonId},#{addr1}, #{addr2}, #{addr3}, #{city}, #{state},#{pin}, current_date, #{updatedDate}, #{activeInd})
   </insert>
  
    <update id="updateAddress" parameterType="Address">
@@ -44,13 +44,13 @@
      city = #{city},
      state = #{state},
      pin = #{pin},
-     updatedDate = #{updatedDate}
+     updatedDate = current_date
      
     WHERE addressId = #{addressId}
   </update>
  
   <delete id="deleteAddress" parameterType="java.lang.Integer">
-    UPDATE ADDRESS SET updatedDate=#{updatedDate},activeInd=0 WHERE addressId = #{addressId}
+    UPDATE ADDRESS SET updatedDate=current_date,activeInd=0 WHERE addressId = #{addressId}
   </delete> 
 
 </mapper>

@@ -12,7 +12,7 @@ import mappers.AddressMapper;
 
 public class AddressService {
 
-	public AddressDAO insertAddress(AddressDAO addressDao) {
+	public AddressDAO insertAddress(AddressDAO addressDao) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			AddressMapper addressMapper=sqlSession.getMapper(AddressMapper.class);
@@ -22,11 +22,15 @@ public class AddressService {
 			
 			sqlSession.commit();
 			return addressDao;
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
 		}finally{
+		
 			sqlSession.close();
 		}
 	}
-	public AddressDAO getAddressById(Integer addressId) {
+	public AddressDAO getAddressById(Integer addressId) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 
@@ -34,16 +38,14 @@ public class AddressService {
 			return addressMapper.getAddressById(addressId);
 			
 		}catch(Exception e) {
-			System.out.println("error occurred");
-			AddressDAO addressDaoerror=new AddressDAO();
-			addressDaoerror.setAddressId(-1);
-			return addressDaoerror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 		}
 	}
 
-	public List<AddressDAO> getAllAddress() {
+	public List<AddressDAO> getAllAddress() throws Exception {
 		
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		
@@ -51,16 +53,14 @@ public class AddressService {
 			AddressMapper addressMapper=sqlSession.getMapper(AddressMapper.class);
 			return addressMapper.getAllAddress();
 		}catch(Exception e) {
-			System.out.println("error occurred");
-			AddressDAO addresserror=new AddressDAO();
-			addresserror.setAddressId(-1);
-			return (List<AddressDAO>) addresserror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 			
 		}
 	}
-	public AddressDAO updateAddress(int addressId,AddressDAO addressDao) {
+	public AddressDAO updateAddress(int addressId,AddressDAO addressDao) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			AddressMapper addressMapper=sqlSession.getMapper(AddressMapper.class);
@@ -71,17 +71,15 @@ public class AddressService {
 			return addressDao;
 		}catch(Exception e) {
 			sqlSession.rollback();
-			System.out.println("error occurred");
-			AddressDAO addressDaoerror=new AddressDAO();
-			addressDaoerror.setAddressId(-1);
-			return addressDaoerror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 		}
 	}
 
 	
-	public AddressDAO deleteAddress(Integer addressId) {
+	public AddressDAO deleteAddress(Integer addressId) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			AddressMapper addressMapper = sqlSession.getMapper(AddressMapper.class);
@@ -91,10 +89,8 @@ public class AddressService {
 			return addressDao;
 		}catch(Exception e) {
 			sqlSession.rollback();
-			System.out.println("error occurred");
-			AddressDAO addressDaoerror=new AddressDAO();
-			addressDaoerror.setAddressId(-1);
-			return addressDaoerror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 		}
@@ -119,5 +115,15 @@ public class AddressService {
 		addressDao.setState(address.getState());
 		addressDao.setPin(address.getPin());
 		return addressDao;
+	}
+	public Address wrapAddressToAddressDto(AddressDAO addressDao) {
+		Address address=new Address();
+		address.setAddr1(addressDao.getAddr1());
+		address.setAddr2(addressDao.getAddr2());
+		address.setAddr3(addressDao.getAddr3());
+		address.setCity(addressDao.getCity());
+		address.setState(addressDao.getState());
+		address.setPin(addressDao.getPin());
+		return address;
 	}
 }

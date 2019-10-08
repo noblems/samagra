@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -15,40 +16,26 @@ import exceptions.StudentFunctionServiceException;
 
 public class StudentFunctionsService {
 
-	public void insertStudent(Student student) throws  StudentFunctionServiceException {
+	public void insertStudent(Student student) throws  Exception {
+		try {
 		StudentService studentService=new StudentService();
 		PersonService personService= new PersonService();
 		AddressService addressService=new AddressService();
 		PersonDAO personDao=personService.extractPersonFromStudentDto(student);
 		personDao=personService.insertPerson(personDao);
-		if(personDao.getPersonId()!=-1) {
-			AddressDAO addressDao=addressService.extractAddressFromStudentDto(student);
-			System.out.println("person id="+personDao.getPersonId());
-			addressDao.setAddressPersonId(personDao.getPersonId());
-			addressDao=addressService.insertAddress(addressDao);
-			if(addressDao.getAddressId()!=-1) {
-				StudentDAO studentDao=studentService.extractStudentFromStudentDto(student);
-				studentDao.setStudentPersonId(personDao.getPersonId());
-				studentDao.setStudentAddressId(addressDao.getAddressId());
-				studentDao=studentService.insertStudent(studentDao);
-				if(studentDao.getStudentId()==-1) {
-					StudentFunctionServiceException e=new StudentFunctionServiceException();
-					e.setStudentDao(studentDao.getStudentId());
-					e.setMessage("something went wrong with insertion of student");
-					throw e;
-				}
-			}else{
-				StudentFunctionServiceException e=new StudentFunctionServiceException();
-				e.setAddressDao(addressDao.getAddressId());
-				e.setMessage("something went wrong with insertion of addresss");
-				throw e;
-			}
-		}else{
-			StudentFunctionServiceException e=new StudentFunctionServiceException();
-			e.setPersonDao(personDao.getPersonId());
-			e.setMessage("something went wrong with insertion of person");
+		AddressDAO addressDao=addressService.extractAddressFromStudentDto(student);
+		//System.out.println("person id="+personDao.getPersonId());
+		addressDao.setAddressPersonId(personDao.getPersonId());
+		addressDao=addressService.insertAddress(addressDao);
+		StudentDAO studentDao=studentService.extractStudentFromStudentDto(student);
+		studentDao.setStudentPersonId(personDao.getPersonId());
+		studentDao.setStudentAddressId(addressDao.getAddressId());
+		studentDao=studentService.insertStudent(studentDao);
+		}catch(Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
+
 	}
 
 	/*public PersonDAO getpersonById(Integer personId) {
@@ -86,103 +73,72 @@ public class StudentFunctionsService {
 			sqlSession.close();
 		}
 		return student;
-	}
+	}*/
 
-	public List<Student> getAllStudent() {
+	public List<Student> getAllStudent() throws Exception {
 
-		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		List<Student>students = new ArrayList<Student>();
+		StudentService studentService=new StudentService();
+		PersonService personService= new PersonService();
+		AddressService addressService=new AddressService();
 		try{
-
-			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
-			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
-			AddressMapper addressMapper = sqlSession.getMapper(AddressMapper.class);
-			List<StudentDAO> studentDao=studentMapper.getAllStudent();
-			System.out.println(studentDao.size());
+			List<StudentDAO> studentDao=studentService.getAllStudent();
+			//System.out.println(studentDao.size());
 			//Iterator studentIterator =  studentDao.iterator();
 			for(int i=0;i<studentDao.size();i++){
 				Student student=new Student();
-				student.setStudentId(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentId());
-				student.setRegisterNumber(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getRegisterNumber());
-				student.setAdmissionNumber(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getAdmissionNumber());
-				System.out.println("here");
-				student.setFirstName(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getFirstName());
-				student.setMiddleName(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getMiddleName());
-				student.setLastName(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getLastName());
-				student.setDob(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getDOB());
-				student.setSex(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getSex());
-				student.setPersonId(personMapper.getPersonById(studentMapper.getStudentById(studentDao.get(i).getStudentId()).getStudentPersonId()).getPersonId());
-				System.out.println("here too ffh");
-				AddressDAO addressDao=addressMapper.getAddressById(studentDao.get(i).getStudentAddressId());
-				Address address=new Address();
-				address.setAddr1(addressDao.getAddr1());
-				address.setAddr2(addressDao.getAddr2());
-				address.setAddr3(addressDao.getAddr3());
-				address.setCity(addressDao.getCity());
-				address.setState(addressDao.getState());
-				address.setPin(addressDao.getPin());
-				student.setAddress(address);
-				//student.setMessage("helo");
+				AddressDAO addressDao=addressService.getAddressById(studentDao.get(i).getStudentAddressId());
+				studentService.wrapStudentDto(studentDao.get(i),
+						personService.getPersonById(studentDao.get(i).getStudentPersonId()),
+						addressService.wrapAddressToAddressDto(addressDao));
 				students.add(student);
-				System.out.println("here too");
 			}
 
 
 		}catch(Exception e) {
-			System.out.println("error occurred");
-			Student studenterror=new Student();
-			studenterror.setStudentId(-1);
-			studenterror.setMessage("No students are available");
-			students.add(studenterror);
-		}finally{
-			sqlSession.close();
-
+			e.printStackTrace();
+			throw e;
 		}
 		return students;
 	}
-	public String updateStudent(int studentId,Student student) {
-		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+	public void updateStudent(int studentId,Student student) throws Exception {
 		try{
-			PersonService personService = new PersonService();
-			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
-			StudentDAO studentDao=studentMapper.getStudentById(studentId);
-			int personId=studentDao.getStudentPersonId();
-			PersonDAO personDao=personService.updatePerson(personId,personService.extractPersonFromStudentDto(student));
-			studentDao.setAdmissionNumber(student.getAdmissionNumber());
-			studentDao.setRegisterNumber(student.getRegisterNumber());
-			studentDao.setUpdatedDate(new Date().toString());
-			studentMapper.updateStudent(studentDao);
-
-			sqlSession.commit();
-			return "Updated Successfully";
+			StudentService studentService=new StudentService();
+			PersonService personService= new PersonService();
+			AddressService addressService=new AddressService();
+			if(studentService.getStudentById(studentId)!=null) {
+				StudentDAO studentDao=studentService.extractStudentFromStudentDto(student);
+				AddressDAO addressDao=addressService.extractAddressFromStudentDto(student);
+				PersonDAO personDao=personService.extractPersonFromStudentDto(student);
+				studentDao=studentService.updateStudent(studentId, studentDao);
+				addressDao=addressService.updateAddress(studentDao.getStudentAddressId(), addressDao);
+				personDao=personService.updatePerson(studentDao.getStudentPersonId(), personDao);
+			}else {
+				throw new NoSuchElementException();
+			}
 		}catch(Exception e) {
-			sqlSession.rollback();
-			return "Some error happened check later "+e.getMessage();
-		}finally{
-			sqlSession.close();
+			e.printStackTrace();
+			throw e;
 		}
 	}
 
 
-	public String deleteStudent(Integer StudentId) {
-		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
-		try{
-			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
-			StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
-			personMapper.deletePerson(studentMapper.getStudentById(StudentId).getStudentPersonId());
-			studentMapper.deleteStudent(StudentId);
+	public void deleteStudent(Integer studentId) throws Exception {
+		try {
+			StudentService studentService=new StudentService();
+			PersonService personService= new PersonService();
+			AddressService addressService=new AddressService();
+			StudentDAO studentDao=studentService.getStudentById(studentId);
+			AddressDAO addressDao=addressService.deleteAddress(studentDao.getStudentAddressId());
+			PersonDAO personDao=personService.deletePerson(studentDao.getStudentPersonId());
+			studentDao=studentService.deleteStudent(studentId);
+			System.out.println("my activ ind is"+studentDao.getActiveInd());
+			}catch(Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
 
-			sqlSession.commit();
-			return "Updated Successfully";
-		}catch(Exception e) {
-			sqlSession.rollback();
-			return "Some error happened check later "+e.getMessage();
-		}finally{
-			sqlSession.close();
-		}
-	}
-
-}*/
+}
 
 
 }

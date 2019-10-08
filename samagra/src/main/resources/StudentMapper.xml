@@ -28,7 +28,7 @@
   <insert id="insertStudent" parameterType="Student" useGeneratedKeys="true" keyProperty="studentId">
    INSERT INTO STUDENT( studentPersonId, registerNumber, admissionNumber, 
             studentAddressId, createdDate, updatedDate, activeInd)
-    VALUES(#{studentPersonId}, #{registerNumber}, #{admissionNumber}, #{studentAddressId}, #{createdDate}, #{updatedDate}, #{activeInd})
+    VALUES(#{studentPersonId}, #{registerNumber}, #{admissionNumber}, #{studentAddressId}, current_date, #{updatedDate}, #{activeInd})
   </insert>
  
    <update id="updateStudent" parameterType="Student">
@@ -36,13 +36,13 @@
     SET
     admissionNumber = #{admissionNumber},
     registerNumber = #{registerNumber},
-    updatedDate = #{updatedDate}
+    updatedDate = current_date
     WHERE 
     studentId=#{studentId}
   </update>
  
   <delete id="deleteStudent" parameterType="java.lang.Integer">
-    UPDATE STUDENT SET updatedDate=#{updatedDate},activeInd=0 WHERE studentId = #{studentId}
+    UPDATE STUDENT SET updatedDate=current_date,activeInd=0 WHERE studentId = #{studentId}
   </delete> 
 
 </mapper>

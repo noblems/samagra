@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import dto.Address;
 import dto.Student;
+import entity.AddressDAO;
+import entity.PersonDAO;
 import entity.StudentDAO;
 import mappers.StudentMapper;
 import service.MyBatisUtil;
@@ -13,7 +16,7 @@ import service.MyBatisUtil;
 public class StudentService {
 
 	
-	public StudentDAO insertStudent(StudentDAO studentDao) {
+	public StudentDAO insertStudent(StudentDAO studentDao) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
@@ -23,11 +26,16 @@ public class StudentService {
 
 			sqlSession.commit();
 			return studentDao;
+		}catch(Exception e) {
+			sqlSession.rollback();
+			e.printStackTrace();
+			throw e;
 		}finally{
+		
 			sqlSession.close();
 		}
 	}
-	public StudentDAO getStudentById(Integer studentId) {
+	public StudentDAO getStudentById(Integer studentId) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 
@@ -35,16 +43,14 @@ public class StudentService {
 			return studentMapper.getStudentById(studentId);
 			
 		}catch(Exception e) {
-			System.out.println("error occurred");
-			StudentDAO studentDaoerror=new StudentDAO();
-			studentDaoerror.setStudentId(-1);
-			return studentDaoerror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 		}
 	}
 
-	public List<StudentDAO> getAllStudent() {
+	public List<StudentDAO> getAllStudent() throws Exception {
 		
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		
@@ -52,16 +58,14 @@ public class StudentService {
 			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
 			return studentMapper.getAllStudent();
 		}catch(Exception e) {
-			System.out.println("error occurred");
-			StudentDAO studenterror=new StudentDAO();
-			studenterror.setStudentId(-1);
-			return (List<StudentDAO>) studenterror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 			
 		}
 	}
-	public StudentDAO updateStudent(int studentId,StudentDAO studentDao) {
+	public StudentDAO updateStudent(int studentId,StudentDAO studentDao) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
@@ -72,17 +76,15 @@ public class StudentService {
 			return studentDao;
 		}catch(Exception e) {
 			sqlSession.rollback();
-			System.out.println("error occurred");
-			StudentDAO studentDaoerror=new StudentDAO();
-			studentDaoerror.setStudentId(-1);
-			return studentDaoerror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 		}
 	}
 
 	
-	public StudentDAO deleteStudent(Integer studentId) {
+	public StudentDAO deleteStudent(Integer studentId) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
@@ -92,10 +94,8 @@ public class StudentService {
 			return studentDao;
 		}catch(Exception e) {
 			sqlSession.rollback();
-			System.out.println("error occurred");
-			StudentDAO studentDaoerror=new StudentDAO();
-			studentDaoerror.setStudentId(-1);
-			return studentDaoerror;
+			e.printStackTrace();
+			throw e;
 		}finally{
 			sqlSession.close();
 		}
@@ -106,5 +106,16 @@ public class StudentService {
 		studentDao.setRegisterNumber(student.getRegisterNumber());
 		studentDao.setAdmissionNumber(student.getAdmissionNumber());
 		return studentDao;
+	}
+	public Student wrapStudentDto(StudentDAO studentDao,PersonDAO personDao,Address address) {
+		Student student =  new Student();
+		student.setAdmissionNumber(studentDao.getAdmissionNumber());
+		student.setRegisterNumber(studentDao.getRegisterNumber());
+		student.setFirstName(personDao.getFirstName());
+		student.setMiddleName(personDao.getMiddleName());
+		student.setLastName(personDao.getLastName());
+		student.setDob(personDao.getDob());
+		student.setAddress(address);
+		return student;
 	}
 }

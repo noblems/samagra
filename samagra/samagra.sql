@@ -27,3 +27,35 @@ INSERT INTO student( studentpersonid, registernumber, admissionnumber,
  select * from Person p inner join
 Student s
 on s.studentPersonId=p.personid
+
+--create table person(personId Serial primary key,firstName varchar not null, middleName varchar,lastName varchar not null,dob varchar, sex varchar(7) not null, createdDate date, updatedDate date,activeInd int)
+--create table student(studentId serial primary key, studentPersonId integer references person(personid), registerNumber integer,admissionNumber integer,studentAddressID integer not null references address(addressId),createdDate date, updatedDate date,activeInd int)
+select * from Student s inner join
+Person p 
+on s.studentPersonId=p.personid
+inner join address a
+on a.addressid=s.studentaddressid
+where p.activeind!=0 and s. activeind!=0 and p.personid=23
+
+select * from address
+select * from Person
+select * from student
+delete  from Student 
+delete from person
+delete from address
+update person set activeINd=1 where personid in (18,19)
+begin transaction
+drop table address;
+
+drop table person
+drop table student
+
+create table address(addressId serial primary key, addressPersonId integer not null references person(personid),addr1 varchar,addr2 varchar,addr3 varchar, city varchar, state varchar,pin varchar,createdDate date, updatedDate date,activeInd int)
+commit
+rollback()
+insert into person(person
+INSERT INTO address(
+            addresspersonid, addr1, addr2, addr3, city, state, 
+            pin, createddate, updateddate, activeind)
+    VALUES ( 23, 'test', 'test', 'test', 'test', 'test', 
+            'test', current_date, current_date, 1);
