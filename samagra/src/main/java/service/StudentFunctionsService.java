@@ -87,10 +87,12 @@ public class StudentFunctionsService {
 			//Iterator studentIterator =  studentDao.iterator();
 			for(int i=0;i<studentDao.size();i++){
 				Student student=new Student();
+				System.out.println("stdao"+studentDao.get(i).getStudentAddressId());
 				AddressDAO addressDao=addressService.getAddressById(studentDao.get(i).getStudentAddressId());
-				studentService.wrapStudentDto(studentDao.get(i),
+				student=studentService.wrapStudentDto(studentDao.get(i),
 						personService.getPersonById(studentDao.get(i).getStudentPersonId()),
 						addressService.wrapAddressToAddressDto(addressDao));
+				System.out.println("stude"+student.getFirstName());
 				students.add(student);
 			}
 
@@ -110,9 +112,10 @@ public class StudentFunctionsService {
 				StudentDAO studentDao=studentService.extractStudentFromStudentDto(student);
 				AddressDAO addressDao=addressService.extractAddressFromStudentDto(student);
 				PersonDAO personDao=personService.extractPersonFromStudentDto(student);
+				//personDao.setPersonId(studentservice);
 				studentDao=studentService.updateStudent(studentId, studentDao);
-				addressDao=addressService.updateAddress(studentDao.getStudentAddressId(), addressDao);
-				personDao=personService.updatePerson(studentDao.getStudentPersonId(), personDao);
+				addressDao=addressService.updateAddress(studentService.getStudentById(studentId).getStudentAddressId(), addressDao);
+				personDao=personService.updatePerson(studentService.getStudentById(studentId).getStudentPersonId(), personDao);
 			}else {
 				throw new NoSuchElementException();
 			}

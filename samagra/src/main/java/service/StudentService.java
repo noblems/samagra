@@ -109,13 +109,17 @@ public class StudentService {
 	}
 	public Student wrapStudentDto(StudentDAO studentDao,PersonDAO personDao,Address address) {
 		Student student =  new Student();
+		student.setStudentId(studentDao.getStudentId());
 		student.setAdmissionNumber(studentDao.getAdmissionNumber());
 		student.setRegisterNumber(studentDao.getRegisterNumber());
 		student.setFirstName(personDao.getFirstName());
 		student.setMiddleName(personDao.getMiddleName());
 		student.setLastName(personDao.getLastName());
+		student.setPersonId(personDao.getPersonId());
 		student.setDob(personDao.getDob());
+		student.setSex(personDao.getSex());
 		student.setAddress(address);
+		System.out.println("i set following"+student.getFirstName());
 		return student;
 	}
 }

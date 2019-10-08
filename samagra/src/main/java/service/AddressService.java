@@ -123,6 +123,7 @@ public class AddressService {
 		address.setAddr3(addressDao.getAddr3());
 		address.setCity(addressDao.getCity());
 		address.setState(addressDao.getState());
+		address.setAddressId(addressDao.getAddressId());
 		address.setPin(addressDao.getPin());
 		return address;
 	}
