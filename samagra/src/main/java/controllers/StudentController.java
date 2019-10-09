@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dto.Response;
 import dto.Student;
+//import dto.Student;
 import service.StudentFunctionsService;
+import service.StudentService;
 
 
 @RestController
@@ -21,7 +23,7 @@ public class StudentController {
 	 public String receiveAll() throws IOException {
 		 return "student service is working fine";
 	 }
-	 /*@RequestMapping(value="/getAllStudents")
+	 @RequestMapping(value="/getAllStudents")
 	 public List<Student> getAllStudents() throws Exception {
 		 StudentFunctionsService service=new StudentFunctionsService();
 		 	try {
@@ -33,11 +35,11 @@ public class StudentController {
 				
 			}
 	 }
-	 @RequestMapping(value="/getStudentById")
+	/* @RequestMapping(value="/getStudentById")
 	 public Student getStudentById(@RequestParam(value="Id")int id) throws IOException {
 		 StudentService service=new StudentService();
 		 return service.getStudentById(id);
-	 }
+	 }*/
 	  @RequestMapping(value="/insertStudent",method=RequestMethod.POST,consumes=MediaType.APPLICATION_XML_VALUE,produces=MediaType.APPLICATION_XML_VALUE)
 	 public Response insertStudent(@RequestBody Student student) throws IOException {
 		 StudentFunctionsService service=new StudentFunctionsService();
@@ -87,7 +89,7 @@ public class StudentController {
 				return response;
 			} 
 	 }
-	 public Address wrapAddressDto(AddressDAO addressDao) {
+	 /*public Address wrapAddressDto(AddressDAO addressDao) {
 		 Address address=new Address();
 		 address.setAddr1(addressDao.getAddr1());
 		 address.setAddr2(addressDao.getAddr2());
@@ -96,6 +98,6 @@ public class StudentController {
 		 address.setState(addressDao.getState());
 		 address.setPin(addressDao.getPin());
 		 return address;
-	 }
-	 */
+	 }*/
+	 
 }
