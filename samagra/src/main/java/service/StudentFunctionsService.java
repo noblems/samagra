@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 
 import org.apache.ibatis.session.SqlSession;
 
+import dto.Address;
 import dto.Student;
 import entity.AddressDAO;
 import entity.PersonDAO;
@@ -38,42 +39,30 @@ public class StudentFunctionsService {
 
 	}
 
-	/*public PersonDAO getpersonById(Integer personId) {
-		  SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
-		  try{
-		  PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
-		  return personMapper.getPersonById(personId);
-		  }finally{
-		   sqlSession.close();
-		  }
-		 }*/
-	/*public Student getStudentById(Integer studentId) {
+	
+	public Student getStudentById(Integer studentId) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		Student student=new Student();
 		try{
-
-			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
-			StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
-			student.setStudentId(studentMapper.getStudentById(studentId).getStudentId());
-			student.setRegisterNumber(studentMapper.getStudentById(studentId).getRegisterNumber());
-			student.setAdmissionNumber(studentMapper.getStudentById(studentId).getAdmissionNumber());
-			student.setFirstName(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getLastName());
-			student.setMiddleName(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getMiddleName());
-			student.setLastName(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getLastName());
-			student.setDob(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getDOB());
-			student.setSex(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getSex());
-			student.setPersonId(personMapper.getPersonById(studentMapper.getStudentById(studentId).getStudentPersonId()).getPersonId());
-
-
+			StudentService studentService=new StudentService();
+			PersonService personService= new PersonService();
+			AddressService addressService=new AddressService();
+			if(studentService.getStudentById(studentId)!=null) {
+				StudentDAO studentDao=studentService.getStudentById(studentId);
+				AddressDAO addressDao=addressService.getAddressById(studentDao.getStudentAddressId());
+				PersonDAO personDao=personService.getPersonById(studentDao.getStudentPersonId());
+				//personDao.setPersonId(studentservice);
+				Address address=addressService.wrapAddressToAddressDto(addressDao);
+				student=studentService.wrapStudentDto(studentDao, personDao, address);
+				return student;
+			}else {
+				throw new NoSuchElementException();
+			}
 		}catch(Exception e) {
-			System.out.println("error occurred");
-			student.setStudentId(-1);
-			student.setMessage("No such student available");
-		}finally{
-			sqlSession.close();
+			e.printStackTrace();
+			throw e;
 		}
-		return student;
-	}*/
+	}
 
 	public List<Student> getAllStudent() throws Exception {
 
@@ -87,12 +76,12 @@ public class StudentFunctionsService {
 			//Iterator studentIterator =  studentDao.iterator();
 			for(int i=0;i<studentDao.size();i++){
 				Student student=new Student();
-				System.out.println("stdao"+studentDao.get(i).getStudentAddressId());
+				//System.out.println("stdao"+studentDao.get(i).getStudentAddressId());
 				AddressDAO addressDao=addressService.getAddressById(studentDao.get(i).getStudentAddressId());
 				student=studentService.wrapStudentDto(studentDao.get(i),
 						personService.getPersonById(studentDao.get(i).getStudentPersonId()),
 						addressService.wrapAddressToAddressDto(addressDao));
-				System.out.println("stude"+student.getFirstName());
+				//System.out.println("stude"+student.getFirstName());
 				students.add(student);
 			}
 
@@ -135,7 +124,7 @@ public class StudentFunctionsService {
 			AddressDAO addressDao=addressService.deleteAddress(studentDao.getStudentAddressId());
 			PersonDAO personDao=personService.deletePerson(studentDao.getStudentPersonId());
 			studentDao=studentService.deleteStudent(studentId);
-			System.out.println("my activ ind is"+studentDao.getActiveInd());
+			//System.out.println("my activ ind is"+studentDao.getActiveInd());
 			}catch(Exception e) {
 				e.printStackTrace();
 				throw e;

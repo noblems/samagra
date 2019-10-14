@@ -35,11 +35,17 @@ public class StudentController {
 				
 			}
 	 }
-	/* @RequestMapping(value="/getStudentById")
+	 @RequestMapping(value="/getStudentById")
 	 public Student getStudentById(@RequestParam(value="Id")int id) throws IOException {
-		 StudentService service=new StudentService();
-		 return service.getStudentById(id);
-	 }*/
+		 StudentFunctionsService service=new StudentFunctionsService();
+		 try {
+			return service.getStudentById(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	 }
 	  @RequestMapping(value="/insertStudent",method=RequestMethod.POST,consumes=MediaType.APPLICATION_XML_VALUE,produces=MediaType.APPLICATION_XML_VALUE)
 	 public Response insertStudent(@RequestBody Student student) throws IOException {
 		 StudentFunctionsService service=new StudentFunctionsService();
