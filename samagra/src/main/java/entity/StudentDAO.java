@@ -8,6 +8,8 @@ public class StudentDAO {
 	private int registerNumber;
 	private int admissionNumber; 
 	private int studentAddressId;
+	private int divisionId;
+	private int markId;
 	private Date createdDate;
 	private Date updatedDate;
 	private int activeInd;
@@ -59,5 +61,17 @@ public class StudentDAO {
 	}
 	public void setActiveInd(int activeInd) {
 		this.activeInd = activeInd;
+	}
+	public int getDivisionId() {
+		return divisionId;
+	}
+	public void setDivisionId(int divisionId) {
+		this.divisionId = divisionId;
+	}
+	public int getMarkId() {
+		return markId;
+	}
+	public void setMarkId(int markId) {
+		this.markId = markId;
 	}
 }
