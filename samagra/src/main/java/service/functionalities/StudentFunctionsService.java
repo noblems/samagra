@@ -1,4 +1,4 @@
-package service;
+package service.functionalities;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +13,9 @@ import entity.AddressDAO;
 import entity.PersonDAO;
 import entity.StudentDAO;
 import exceptions.StudentFunctionServiceException;
+import service.basic.AddressService;
+import service.basic.PersonService;
+import service.basic.StudentService;
 
 public class StudentFunctionsService {
 

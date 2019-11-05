@@ -5,6 +5,15 @@
 
 --Student table for first service
 --create table student(studentId serial primary key, studentPersonId integer, registerNumber integer,admissionNumber integer,studentAddressID integer,createdDate varchar, updatedDate varchar,activeInd int)
+create table Division (
+	  divisionId serial primary key,
+	divisionName varchar,
+	 staffId integer,
+	 divisionDescription varchar,
+	 standard integer,
+	 createdDate Date  default current_date,
+	  updatedDate Date,
+	activeInd integer)
 select * from person;
 SELECT * FROM Student;
 --drop table student

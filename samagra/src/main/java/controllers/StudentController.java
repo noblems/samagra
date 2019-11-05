@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dto.Response;
 import dto.Student;
-//import dto.Student;
-import service.StudentFunctionsService;
-import service.StudentService;
+import service.basic.StudentService;
+import service.functionalities.StudentFunctionsService;
 
 
 @RestController

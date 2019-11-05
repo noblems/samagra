@@ -1,4 +1,4 @@
-package service;
+package service.basic;
 
 import java.io.IOException;
 import java.io.Reader;

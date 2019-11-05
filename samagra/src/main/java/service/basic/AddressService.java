@@ -1,4 +1,4 @@
-package service;
+package service.basic;
 
 import java.util.Date;
 import java.util.List;
