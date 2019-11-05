@@ -5,13 +5,13 @@ import java.util.List;
 import entity.StaffDAO;
 
 public interface StaffMapper {
-	public void insertAddress(StaffDAO staff);
+	public void insertStaff(StaffDAO staff);
 	 
-	 public StaffDAO getAddressById(Integer staffId);
+	 public StaffDAO getStaffById(Integer staffId);
 	 
-	 public List<StaffDAO> getAllAddress();
+	 public List<StaffDAO> getAllStaff();
 	 
-	 public void updateAddress(StaffDAO staff);
+	 public void updateStaff(StaffDAO staff);
 	 
-	 public void deleteAddress(Integer staffId);
+	 public void deleteStaff(Integer staffId);
 }

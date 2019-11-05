@@ -8,6 +8,7 @@
   <typeAlias type='entity.PersonDAO' alias='Person'></typeAlias>
   <typeAlias type='entity.StudentDAO' alias='Student'></typeAlias>
   <typeAlias type='entity.AddressDAO' alias='Address'></typeAlias>
+  <typeAlias type='entity.StaffDAO' alias='Staff'></typeAlias>
  </typeAliases>
  <environments default='development'>
   <environment id='development'>
@@ -24,5 +25,6 @@
  <mapper resource='PersonMapper.xml'/>
  <mapper resource='StudentMapper.xml'/>
  <mapper resource='AddressMapper.xml'/>
+ <mapper resource='StaffMapper.xml'/>
   </mappers>
 </configuration>
