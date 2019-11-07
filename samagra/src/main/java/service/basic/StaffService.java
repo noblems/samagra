@@ -80,12 +80,13 @@ public class StaffService {
 		}
 	}
 
-	/*public StaffDAO deleteStaff(Integer staffId) throws Exception {
+	public StaffDAO deleteStaff(Integer staffId) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			StaffMapper staffMapper = sqlSession.getMapper(StaffMapper.class);
-			StaffDAO staffDao=staffMapper.getStaffById(staffId);
-			staffDao.setUpdatedDate(new Date(0));
+			StaffDAO staffDao=new StaffDAO();//staffMapper.getStaffById(staffId);
+			//System.out.println("fetched staffid"+staffDao.getStaffId());
+			//staffDao.setUpdatedDate(new Date(0));
 			staffMapper.deleteStaff(staffId);
 			
 			sqlSession.commit();
@@ -98,7 +99,7 @@ public class StaffService {
 			sqlSession.close();
 		}
 	}
-	public StaffDAO extractStaffFromStudentDto(Student student)throws Exception {
+	/*public StaffDAO extractStaffFromStudentDto(Student student)throws Exception {
 		StaffDAO staffDao=new StaffDAO();
 		//staffDao.setStaffId(studentDao.getStudentStaffId());
 		staffDao.setFirstName(student.getFirstName());
@@ -108,20 +109,23 @@ public class StaffService {
 		staffDao.setSex(student.getSex());
 		return staffDao;
 	}*/
-	public static void main(String[] args) {
-		StaffDAO staffDao= new StaffDAO();
-		staffDao.setStaffType("test2");
+	/*public static void main(String[] args) {
+		//StaffDAO staffDao= new StaffDAO();
+		//System.out.print("begin");
+		//staffDao.setStaffType("test2");
 		StaffService ss=new StaffService();
+		//System.out.print("outer");
 		try {
 			//ss.insertStaff(staffDao);
 			//staffDao=ss.getAllStaff().get(0);
-			ss.updateStaff(1, staffDao);
+			ss.deleteStaff(10);
 			//staffDao=ss.getStaffById(1);
-			System.out.print(staffDao.getStaffType()+"\n\ndone");
+			//staffDao=ss.getStaffById(2);
+			//System.out.print("\n\ndone");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 }

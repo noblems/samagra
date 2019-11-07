@@ -5,13 +5,13 @@ import java.util.List;
 import entity.MarksDAO;
 
 public interface MarksMapper {
-	public void insertAddress(MarksDAO marks);
+	public void insertMarks(MarksDAO marks);
 	 
-	 public MarksDAO getAddressById(Integer marksId);
+	 public MarksDAO getMarksById(Integer marksId);
 	 
-	 public List<MarksDAO> getAllAddress();
+	 public List<MarksDAO> getAllMarks();
 	 
-	 public void updateAddress(MarksDAO marks);
+	 public void updateMarks(MarksDAO marks);
 	 
-	 public void deleteAddress(Integer marksId);
+	 public void deleteMarks(Integer marksId);
 }

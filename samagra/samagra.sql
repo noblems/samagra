@@ -5,7 +5,22 @@
 
 --Student table for first service
 --create table student(studentId serial primary key, studentPersonId integer, registerNumber integer,admissionNumber integer,studentAddressID integer,createdDate varchar, updatedDate varchar,activeInd int)
-
+create table Staff (
+	staffId serial primary key,
+	staffType varchar,
+	staffPersonId integer,
+	addressId integer,
+	 createdDate Date  default current_date,
+	  updatedDate Date,
+	activeInd integer default 1)
+	drop table staff
+	insert into staff(stafftype,staffpersonid,addressid) values('test',1,2)
+	select * from staff.
+	select * from staff
+update staff set updateddate=null, activeind=1
+truncate staff
+SELECT * FROM Staff WHERE staffId = 7 AND activeInd!=0
+insert into staff(stafftype,staffpersonid,addressid) values('test',1,2)
 create table Staff (
 	staffId serial primary key,
 	staffType varchar,

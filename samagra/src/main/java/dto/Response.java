@@ -8,17 +8,20 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 @JacksonXmlRootElement(localName = "Response")
 public class Response{
 	@JacksonXmlProperty
-	List<Object> objects;
-	public Response createResponse(Object o){
-		this.objects.add(o);
-		return this;
+	private int responseCode;
+	@JacksonXmlProperty
+	private String message;
+	public int getResponseCode() {
+		return responseCode;
 	}
-	public List<Object> getObjects() {
-		return objects;
+	public void setResponseCode(int responseCode) {
+		this.responseCode = responseCode;
 	}
-
-	public void setObjects(List<Object> objects) {
-		this.objects = objects;
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 	

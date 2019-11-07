@@ -5,13 +5,13 @@ import java.util.List;
 import entity.SubjectsDAO;
 
 public interface SubjectsMapper {
-	public void insertStudent(SubjectsDAO subjects);
+	public void insertSubjects(SubjectsDAO subjects);
 	 
-	 public SubjectsDAO getStudentById(Integer subjectsId);
+	 public SubjectsDAO getSubjectsById(Integer subjectsId);
 	 
-	 public List<SubjectsDAO> getAllStudent();
+	 public List<SubjectsDAO> getAllSubjects();
 	 
-	 public void updateStudent(SubjectsDAO subjects);
+	 public void updateSubjects(SubjectsDAO subjects);
 	 
-	 public void deleteStudent(Integer subjectsId);
+	 public void deleteSubjects(Integer subjectsId);
 }

@@ -42,8 +42,8 @@
     WHERE staffId = #{staffId}
   </update>
  
-   <!--  <delete id="deleteStaff" parameterType="java.lang.Integer">
+    <delete id="deleteStaff" parameterType="java.lang.Integer">
     UPDATE STAFF SET updatedDate=current_date,activeInd=0 WHERE staffId = #{staffId}
-  </delete>  -->
+  </delete> 
 
 </mapper>
