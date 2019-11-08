@@ -3,17 +3,17 @@ package entity;
 import java.util.Date;
 
 public class SubjectsDAO {
-	private int subjectId;
+	private int subjectsId;
 	private String subjectName;
 	private int staffId;
 	private Date createdDate;
 	private Date updatedDate;
 	private int activeInd;
-	public int getSubjectId() {
-		return subjectId;
+	public int getSubjectsId() {
+		return subjectsId;
 	}
-	public void setSubjectId(int subjectId) {
-		this.subjectId = subjectId;
+	public void setSubjectsId(int subjectsId) {
+		this.subjectsId = subjectsId;
 	}
 	public String getSubjectName() {
 		return subjectName;

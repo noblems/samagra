@@ -2,53 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="mappers.PersonMapper">
+<mapper namespace="mappers.SubjectsMapper">
  
-  <!--  <select id="getPersonById" parameterType="int" resultType="Person">
+    <select id="getSubjectsById" parameterType="int" resultType="Subjects">
      SELECT  *
-     FROM Person 
-     WHERE personId = #{personId} AND activeInd!=0
+     FROM Subjects 
+     WHERE subjectsId = #{subjectsId} AND activeInd!=0
   </select> 
   
-   <resultMap type="Person" id="PersonResult">
-    <id property="personId" column="personId"/>
-    <result property="firstName" column="firstName"/>
-    <result property="middleName" column="middleName"/>
-    <result property="lastName" column="lastName"/>
-    <result property="dob" column="dob"/>  
-    <result property="sex" column="sex"/> 
+   <resultMap type="Subjects" id="SubjectsResult">
+    <id property="subjectsId" column="subjectsId"/>
+    <result property="subjectName" column="subjectName"/>
+    <result property="staffId" column="staffId"/> 
     <result property="createdDate" column="createdDate"/> 
     <result property="updatedDate" column="updatedDate"/> 
     <result property="activeInd" column="activeInd"/> 
    </resultMap>
  
-   <select id="getAllPerson" resultMap="PersonResult">
-   SELECT * FROM PERSON WHERE activeInd !=0
+   <select id="getAllSubjects" resultMap="SubjectsResult">
+   SELECT * FROM SUBJECTS WHERE activeInd !=0
   </select> 
  
-  <insert id="insertPerson" parameterType="Person" useGeneratedKeys="true" keyProperty="personId">
-   INSERT INTO PERSON(
-             firstName, middleName, lastName, dob, sex, createdDate, 
+  <insert id="insertSubjects" parameterType="Subjects" useGeneratedKeys="true" keyProperty="subjectsId">
+   INSERT INTO SUBJECTS(
+             subjectName,staffId , createdDate, 
             updatedDate, activeInd)
-    VALUES(#{firstName}, #{middleName}, #{lastName}, #{dob}, #{sex}, current_date, #{updatedDate}, #{activeInd})
+    VALUES(#{subjectName}, #{staffId}, current_date, #{updatedDate}, #{activeInd})
   </insert>
  
-   <update id="updatePerson" parameterType="Person">
-    UPDATE PERSON 
+<update id="updateSubjects" parameterType="Subjects">
+    UPDATE SUBJECTS 
     SET
-     personId= #{personId},
-     firstName = #{firstName},
-     middleName = #{middleName},
-     lastName = #{lastName},
-     dob = #{dob},
-     sex = #{sex},
+     subjectsId= #{subjectsId},
+     subjectName = #{subjectName},
+     staffId = #{staffId},
      updatedDate = current_date
      
-    WHERE personId = #{personId}
+    WHERE subjectsId = #{subjectsId}
   </update>
  
-  <delete id="deletePerson" parameterType="java.lang.Integer">
-    UPDATE PERSON SET updatedDate=current_date,activeInd=0 WHERE personId = #{personId}
-  </delete>  -->
-
+  <delete id="deleteSubjects" parameterType="java.lang.Integer">
+    UPDATE SUBJECTS SET updatedDate=current_date,activeInd=0 WHERE subjectsId = #{subjectsId}
+  </delete>  
 </mapper>

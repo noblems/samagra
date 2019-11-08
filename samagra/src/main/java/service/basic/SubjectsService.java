@@ -116,11 +116,18 @@ public class SubjectsService {
 		//System.out.print("outer");
 		try {
 			ss.insertSubjects(subjectsDao);
-			//subjectsDao=ss.getAllSubjects().get(0);
+			subjectsDao=ss.getAllSubjects().get(0);
 			//ss.deleteSubjects(10);
 			//subjectsDao=ss.getSubjectsById(1);
 			//subjectsDao=ss.getSubjectsById(2);
-			//System.out.print("\n\ndone");
+			System.out.print(subjectsDao.getSubjectName()+"\n\ndone");
+			subjectsDao=ss.getSubjectsById(1);
+			System.out.print("by id"+subjectsDao.getSubjectName()+"\n\ndone");
+			subjectsDao.setSubjectName("unit test");
+			ss.updateSubjects(1, subjectsDao);
+			subjectsDao=ss.getSubjectsById(1);
+			System.out.print("by id after update"+subjectsDao.getSubjectName()+"\n\ndone");
+			ss.deleteSubjects(1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
