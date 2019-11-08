@@ -5,6 +5,16 @@
 
 --Student table for first service
 --create table student(studentId serial primary key, studentPersonId integer, registerNumber integer,admissionNumber integer,studentAddressID integer,createdDate varchar, updatedDate varchar,activeInd int)
+ create table Marks(
+	markId serial primary key,
+	subjectId integer,
+	studentId integer,
+	 mark float,
+	grade varchar,
+	staffId integer,
+	createdDate date,
+	updatedDate date,
+	activeInd integer)
 create table Subjects(subjectsId serial primary key,
 	subjectName varchar,
 	staffId integer,

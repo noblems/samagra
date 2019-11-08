@@ -108,23 +108,31 @@ public class MarksService {
 		marksDao.setSex(student.getSex());
 		return marksDao;
 	}*/
-	/*public static void main(String[] args) {
-		//MarksDAO marksDao= new MarksDAO();
+	public static void main(String[] args) {
+			MarksDAO marksDao= new MarksDAO();
 		//System.out.print("begin");
-		//marksDao.setMarksType("test2");
+		marksDao.setMark((float) 1.23);
 		MarksService ss=new MarksService();
 		//System.out.print("outer");
 		try {
-			//ss.insertMarks(marksDao);
-			//marksDao=ss.getAllMarks().get(0);
-			ss.deleteMarks(10);
+			ss.insertMarks(marksDao);
+			marksDao=ss.getAllMarks().get(0);
+			//ss.deleteMarks(10);
 			//marksDao=ss.getMarksById(1);
 			//marksDao=ss.getMarksById(2);
-			//System.out.print("\n\ndone");
+			System.out.print(marksDao.getMark()+"\n\ndone");
+			marksDao=ss.getMarksById(1);
+			System.out.print("by id"+marksDao.getMark()+"\n\ndone");
+			marksDao.setMark((float) 1.23);
+			ss.updateMarks(1, marksDao);
+			marksDao=ss.getMarksById(1);
+			System.out.print("by id after update"+marksDao.getMark()+"\n\ndone");
+			ss.deleteMarks(1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}*/
+	}
+	}
 	
-}
+

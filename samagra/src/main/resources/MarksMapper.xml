@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="mappers.PersonMapper">
+<mapper namespace="mappers.MarksMapper">
  
-   <!-- <select id="getPersonById" parameterType="int" resultType="Person">
+   <select id="getMarksById" parameterType="int" resultType="Marks">
      SELECT  *
-     FROM Person 
-     WHERE personId = #{personId} AND activeInd!=0
+     FROM Marks 
+     WHERE marksId = #{marksId} AND activeInd!=0
   </select> 
   
-   <resultMap type="Person" id="PersonResult">
-    <id property="personId" column="personId"/>
-    <result property="firstName" column="firstName"/>
+   <resultMap type="Marks" id="MarksResult">
+    <id property="marksId" column="marksId"/>
+    <result property="subjectId" column="firstName"/>
     <result property="middleName" column="middleName"/>
     <result property="lastName" column="lastName"/>
     <result property="dob" column="dob"/>  
@@ -22,21 +22,21 @@
     <result property="activeInd" column="activeInd"/> 
    </resultMap>
  
-   <select id="getAllPerson" resultMap="PersonResult">
+   <select id="getAllMarks" resultMap="MarksResult">
    SELECT * FROM PERSON WHERE activeInd !=0
   </select> 
  
-  <insert id="insertPerson" parameterType="Person" useGeneratedKeys="true" keyProperty="personId">
+  <insert id="insertMarks" parameterType="Marks" useGeneratedKeys="true" keyProperty="marksId">
    INSERT INTO PERSON(
              firstName, middleName, lastName, dob, sex, createdDate, 
             updatedDate, activeInd)
     VALUES(#{firstName}, #{middleName}, #{lastName}, #{dob}, #{sex}, current_date, #{updatedDate}, #{activeInd})
   </insert>
  
-   <update id="updatePerson" parameterType="Person">
+   <update id="updateMarks" parameterType="Marks">
     UPDATE PERSON 
     SET
-     personId= #{personId},
+     marksId= #{marksId},
      firstName = #{firstName},
      middleName = #{middleName},
      lastName = #{lastName},
@@ -44,11 +44,11 @@
      sex = #{sex},
      updatedDate = current_date
      
-    WHERE personId = #{personId}
+    WHERE marksId = #{marksId}
   </update>
  
-  <delete id="deletePerson" parameterType="java.lang.Integer">
-    UPDATE PERSON SET updatedDate=current_date,activeInd=0 WHERE personId = #{personId}
-  </delete>  -->
+  <delete id="deleteMarks" parameterType="java.lang.Integer">
+    UPDATE PERSON SET updatedDate=current_date,activeInd=0 WHERE marksId = #{marksId}
+  </delete> 
 
 </mapper>
