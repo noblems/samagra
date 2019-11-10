@@ -4,7 +4,7 @@
 --create table address(adrressId serial primary key, addressPersonId integer ,Addr1 varchar,Addr2 varchar,Addr3 varchar, city varchar, state varchar,pin varchar,createdDate varchar, updatedDate varchar,activeInd int)
 
 --Student table for first service
---create table student(studentId serial primary key, studentPersonId integer, registerNumber integer,admissionNumber integer,studentAddressID integer,createdDate varchar, updatedDate varchar,activeInd int)
+--
  create table Marks(
 	markId serial primary key,
 	subjectId integer,
@@ -26,15 +26,7 @@ create table Subjects(subjectsId serial primary key,
 	
 	drop table subjects
 	
-create table Staff (
-	staffId serial primary key,
-	staffType varchar,
-	staffPersonId integer,
-	addressId integer,
-	 createdDate Date  default current_date,
-	  updatedDate Date,
-	activeInd integer default 1)
-	drop table staff
+
 	insert into staff(stafftype,staffpersonid,addressid) values('test',1,2)
 	select * from staff.
 	select * from staff

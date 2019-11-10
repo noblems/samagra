@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
@@ -26,7 +28,11 @@ public class Student {
 	@JacksonXmlProperty
 	private String message="OK";
 	@JacksonXmlProperty
-	Address address=new Address();
+	private Address address=new Address();
+	@JacksonXmlProperty
+	private List<Marks> marks;
+	@JacksonXmlProperty
+	private int divisionId;
 	public int getStudentId() {
 		return studentId;
 	}
@@ -93,5 +99,17 @@ public class Student {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public List<Marks> getMarks() {
+		return marks;
+	}
+	public void setMarks(List<Marks> marks) {
+		this.marks = marks;
+	}
+	public int getDivisionId() {
+		return divisionId;
+	}
+	public void setDivisionId(int divisionId) {
+		this.divisionId = divisionId;
 	}
 }

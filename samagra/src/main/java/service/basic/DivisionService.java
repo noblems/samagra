@@ -108,23 +108,26 @@ public class DivisionService {
 		divisionDao.setSex(student.getSex());
 		return divisionDao;
 	}*/
-	/*public static void main(String[] args) {
-		//DivisionDAO divisionDao= new DivisionDAO();
+	public static void main(String[] args) {
+		DivisionDAO divisionDao= new DivisionDAO();
 		//System.out.print("begin");
-		//divisionDao.setDivisionType("test2");
+		divisionDao.setDivisionName("test division");
 		DivisionService ss=new DivisionService();
 		//System.out.print("outer");
 		try {
 			//ss.insertDivision(divisionDao);
-			//divisionDao=ss.getAllDivision().get(0);
-			ss.deleteDivision(10);
-			//divisionDao=ss.getDivisionById(1);
+			divisionDao=ss.getAllDivision().get(0);
+			divisionDao=ss.getDivisionById(2);
+			System.out.println("fetched division"+divisionDao.getDivisionName());
+			divisionDao.setDivisionName("xyz");
+			ss.updateDivision(1,divisionDao);
 			//divisionDao=ss.getDivisionById(2);
-			//System.out.print("\n\ndone");
+			ss.deleteDivision(2);
+			System.out.print("\n\ndone");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}*/
+	}
 	
 }

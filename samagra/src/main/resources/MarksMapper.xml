@@ -12,43 +12,41 @@
   
    <resultMap type="Marks" id="MarksResult">
     <id property="marksId" column="marksId"/>
-    <result property="subjectId" column="firstName"/>
-    <result property="middleName" column="middleName"/>
-    <result property="lastName" column="lastName"/>
-    <result property="dob" column="dob"/>  
-    <result property="sex" column="sex"/> 
+    <result property="subjectId" column="subjectId"/>
+    <result property="studentId" column="studentId"/>
+    <result property="mark" column="mark"/>
+    <result property="grade" column="grade"/>
     <result property="createdDate" column="createdDate"/> 
     <result property="updatedDate" column="updatedDate"/> 
     <result property="activeInd" column="activeInd"/> 
    </resultMap>
  
    <select id="getAllMarks" resultMap="MarksResult">
-   SELECT * FROM PERSON WHERE activeInd !=0
+   SELECT * FROM MARKS WHERE activeInd !=0
   </select> 
  
   <insert id="insertMarks" parameterType="Marks" useGeneratedKeys="true" keyProperty="marksId">
-   INSERT INTO PERSON(
-             firstName, middleName, lastName, dob, sex, createdDate, 
+   INSERT INTO MARKS(
+             subjectId, studentId, mark, grade, createdDate, 
             updatedDate, activeInd)
-    VALUES(#{firstName}, #{middleName}, #{lastName}, #{dob}, #{sex}, current_date, #{updatedDate}, #{activeInd})
+    VALUES(#{subjectId}, #{studentId}, #{mark}, #{grade}, current_date, #{updatedDate}, #{activeInd})
   </insert>
  
    <update id="updateMarks" parameterType="Marks">
-    UPDATE PERSON 
+    UPDATE MARKS 
     SET
      marksId= #{marksId},
-     firstName = #{firstName},
-     middleName = #{middleName},
-     lastName = #{lastName},
-     dob = #{dob},
-     sex = #{sex},
+     subjectId = #{subjectId},
+     studentId = #{studentId},
+     mark = #{mark},
+     grade = #{grade},
      updatedDate = current_date
      
     WHERE marksId = #{marksId}
   </update>
  
   <delete id="deleteMarks" parameterType="java.lang.Integer">
-    UPDATE PERSON SET updatedDate=current_date,activeInd=0 WHERE marksId = #{marksId}
+    UPDATE MARKS SET updatedDate=current_date,activeInd=0 WHERE marksId = #{marksId}
   </delete> 
 
 </mapper>

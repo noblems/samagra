@@ -10,12 +10,32 @@
      WHERE studentId = #{studentId} AND activeInd!=0
   </select>
   
+  <select id="getStudentsByDivisionId" parameterType="int" resultType="Student">
+     SELECT *
+     FROM Student 
+     WHERE divisionId = #{divisionId} AND activeInd!=0
+  </select>
+  
+  <select id="getStudentsByAdmissionNumber" parameterType="int" resultType="Student">
+     SELECT *
+     FROM Student 
+     WHERE admissionNumber = #{admissionNumber} AND activeInd!=0
+  </select>
+  
+  <select id="getStudentsByRegisterNumber" parameterType="int" resultType="Student">
+     SELECT *
+     FROM Student 
+     WHERE registerNumber = #{registerNumber} AND activeInd!=0
+  </select>
+  
    <resultMap type="Student" id="StudentResult">
     <id property="studentId" column="studentId"/>
     <result property="studentPersonId" column="studentPersonId"/>
     <result property="registerNumber" column="registerNumber"/>
     <result property="admissionNumber" column="admissionNumber"/>
     <result property="studentAddressId" column="studentAddressId"/>
+    <result property="divisionId" column="divisionId"/>
+    <result property="markId" column="markId"/>
     <result property="createdDate" column="createdDate"/> 
     <result property="updatedDate" column="updatedDate"/> 
     <result property="activeInd" column="activeInd"/> 
@@ -27,15 +47,18 @@
  
   <insert id="insertStudent" parameterType="Student" useGeneratedKeys="true" keyProperty="studentId">
    INSERT INTO STUDENT( studentPersonId, registerNumber, admissionNumber, 
-            studentAddressId, createdDate, updatedDate, activeInd)
-    VALUES(#{studentPersonId}, #{registerNumber}, #{admissionNumber}, #{studentAddressId}, current_date, #{updatedDate}, #{activeInd})
+            studentAddressId,markId,divisionId, createdDate, updatedDate, activeInd)
+    VALUES(#{studentPersonId}, #{registerNumber}, #{admissionNumber}, #{studentAddressId},#{markId},#{divisionId}, current_date, #{updatedDate}, #{activeInd})
   </insert>
  
    <update id="updateStudent" parameterType="Student">
     UPDATE STUDENT 
-    SET
-    admissionNumber = #{admissionNumber},
-    registerNumber = #{registerNumber},
+    SET 
+    registerNumber= #{registerNumber},
+    admissionNumber= #{admissionNumber}, 
+    studentAddressId= #{studentAddressId},
+    markId= #{markId},
+    divisionId= #{divisionId},
     updatedDate = current_date
     WHERE 
     studentId=#{studentId}

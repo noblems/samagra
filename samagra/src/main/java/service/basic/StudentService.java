@@ -48,6 +48,36 @@ public class StudentService {
 			sqlSession.close();
 		}
 	}
+	
+	public StudentDAO getStudentByAdmissionNumber(Integer admissionNumber) throws Exception {
+		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+		try{
+
+			StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+			return studentMapper.getStudentsByAdmissionNumber(admissionNumber);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally{
+			sqlSession.close();
+		}
+	}
+	
+	public StudentDAO getStudentByRegisterNumber(Integer registerNumber) throws Exception {
+		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+		try{
+
+			StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
+			return studentMapper.getStudentsByRegisterNumber(registerNumber);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally{
+			sqlSession.close();
+		}
+	}
 
 	public List<StudentDAO> getAllStudent() throws Exception {
 		
@@ -64,6 +94,23 @@ public class StudentService {
 			
 		}
 	}
+	
+public List<StudentDAO> getAllStudentsByDivision(int divisionId) throws Exception {
+		
+		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+		
+			try {
+			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
+			return studentMapper.getStudentsByDivisionId(divisionId);
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}finally{
+			sqlSession.close();
+			
+		}
+	}
+
 	public StudentDAO updateStudent(int studentId,StudentDAO studentDao) throws Exception {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
@@ -104,6 +151,7 @@ public class StudentService {
 		//System.out.println(personDao.getPersonId());
 		studentDao.setRegisterNumber(student.getRegisterNumber());
 		studentDao.setAdmissionNumber(student.getAdmissionNumber());
+		studentDao.setDivisionId(student.getDivisionId());
 		return studentDao;
 	}
 	public Student wrapStudentDto(StudentDAO studentDao,PersonDAO personDao,Address address) {
@@ -118,7 +166,8 @@ public class StudentService {
 		student.setDob(personDao.getDob());
 		student.setSex(personDao.getSex());
 		student.setAddress(address);
-		System.out.println("i set following"+student.getFirstName());
+		student.setDivisionId(studentDao.getDivisionId());
+		//System.out.println("i set following"+student.getFirstName());
 		return student;
 	}
 }

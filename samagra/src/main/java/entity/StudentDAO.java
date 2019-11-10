@@ -9,7 +9,7 @@ public class StudentDAO {
 	private int admissionNumber; 
 	private int studentAddressId;
 	private int divisionId;
-	private int markId;
+	private int markId;	
 	private Date createdDate;
 	private Date updatedDate;
 	private int activeInd;

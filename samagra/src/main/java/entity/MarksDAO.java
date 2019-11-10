@@ -3,7 +3,7 @@ package entity;
 import java.util.Date;
 
 public class MarksDAO {
-	private int markId;
+	private int marksId;
 	private int subjectId;
 	private int studentId;
 	private float mark;
@@ -11,11 +11,11 @@ public class MarksDAO {
 	private Date createdDate;
 	private Date updatedDate;
 	private int activeInd;
-	public int getMarkId() {
-		return markId;
+	public int getMarksId() {
+		return marksId;
 	}
-	public void setMarkId(int markId) {
-		this.markId = markId;
+	public void setMarskId(int marksId) {
+		this.marksId = marksId;
 	}
 	public int getSubjectId() {
 		return subjectId;
