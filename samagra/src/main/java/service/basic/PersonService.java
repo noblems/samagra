@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import dto.Staff;
 import dto.Student;
 import entity.PersonDAO;
 import mappers.PersonMapper;
@@ -71,8 +72,9 @@ public class PersonService {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
-			personDao.setUpdatedDate(new Date(0));
+			personDao.setPersonId(personId);
 			personMapper.updatePerson(personDao);
+			System.out.println("going to commit person");
 			sqlSession.commit();
 			return personDao;
 		}catch(Exception e) {
@@ -110,6 +112,16 @@ public class PersonService {
 		personDao.setLastName(student.getLastName());
 		personDao.setDob(student.getDob());
 		personDao.setSex(student.getSex());
+		return personDao;
+	}
+	public PersonDAO extractPersonFromStaffDto(Staff staff) {
+		PersonDAO personDao=new PersonDAO();
+		personDao.setFirstName(staff.getFirstName());
+		System.out.println("firist nane"+staff.getFirstName()+"keriyath"+personDao.getFirstName());
+		personDao.setMiddleName(staff.getMiddleName());
+		personDao.setLastName(staff.getLastName());
+		personDao.setDob(staff.getDob());
+		personDao.setSex(staff.getSex());
 		return personDao;
 	}
 	

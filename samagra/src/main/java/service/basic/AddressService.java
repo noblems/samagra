@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import dto.Address;
+import dto.Staff;
 import dto.Student;
 import entity.AddressDAO;
 import mappers.AddressMapper;
@@ -64,7 +65,7 @@ public class AddressService {
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			AddressMapper addressMapper=sqlSession.getMapper(AddressMapper.class);
-			addressDao.setUpdatedDate(new Date());
+			addressDao.setAddressId(addressId);
 			addressMapper.updateAddress(addressDao);
 
 			sqlSession.commit();
@@ -108,6 +109,18 @@ public class AddressService {
 	}
 	public AddressDAO extractAddressFromAddressDto(Address address) {
 		AddressDAO addressDao=new AddressDAO();
+		addressDao.setAddr1(address.getAddr1());
+		addressDao.setAddr2(address.getAddr2());
+		addressDao.setAddr3(address.getAddr3());
+		addressDao.setCity(address.getCity());
+		addressDao.setState(address.getState());
+		addressDao.setPin(address.getPin());
+		return addressDao;
+	}
+	
+	public AddressDAO extractAddressFromStaffDto(Staff staff) {
+		AddressDAO addressDao=new AddressDAO();
+		Address address=staff.getAddress();
 		addressDao.setAddr1(address.getAddr1());
 		addressDao.setAddr2(address.getAddr2());
 		addressDao.setAddr3(address.getAddr3());

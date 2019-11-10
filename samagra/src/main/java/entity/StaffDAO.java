@@ -7,6 +7,7 @@ public class StaffDAO {
 	private String staffType;
 	private int staffPersonId;
 	private int addressId;
+	private int divisionId;
 	private Date createdDate;
 	private Date updatedDate;
 	private int activeInd;
@@ -51,5 +52,11 @@ public class StaffDAO {
 	}
 	public void setActiveInd(int activeInd) {
 		this.activeInd = activeInd;
+	}
+	public int getDivisionId() {
+		return divisionId;
+	}
+	public void setDivisionId(int divisionId) {
+		this.divisionId = divisionId;
 	}
 }

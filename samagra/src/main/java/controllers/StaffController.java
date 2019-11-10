@@ -11,22 +11,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dto.Response;
-import dto.Student;
-import service.basic.StudentService;
-import service.functionalities.StudentFunctionsService;
-
+import dto.Staff;
+import service.functionalities.StaffFunctionsService;
 
 @RestController
-public class StudentController {
-	 @RequestMapping(value="/Students")
+public class StaffController {
+	 @RequestMapping(value="/Staffs")
 	 public String receiveAll() throws IOException {
-		 return "student service is working fine";
+		 return "staffs service is working fine";
 	 }
-	 @RequestMapping(value="/Students/getAllStudents")
-	 public List<Student> getAllStudents() throws Exception {
-		 StudentFunctionsService service=new StudentFunctionsService();
+	 @RequestMapping(value="/Staffs/getAllStaffs")
+	 public List<Staff> getAllStaffs() throws Exception {
+		 StaffFunctionsService service=new StaffFunctionsService();
 		 	try {
-				return service.getAllStudent();
+				return service.getAllStaff();
 			}  catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -34,17 +32,17 @@ public class StudentController {
 				
 			}
 	 }
-	 @RequestMapping(value="/Students/getStudentById")
-	 public Student getStudentById(@RequestParam(value="Id")int id) throws IOException {
-		 StudentFunctionsService service=new StudentFunctionsService();
-		 return service.getStudentById(id);
-	 }
-	  @RequestMapping(value="/Students/insertStudent",method=RequestMethod.POST,consumes=MediaType.APPLICATION_XML_VALUE,produces=MediaType.APPLICATION_XML_VALUE)
-	 public Response insertStudent(@RequestBody Student student) throws IOException {
-		 StudentFunctionsService service=new StudentFunctionsService();
+	 /*@RequestMapping(value="/Staffs/getStaffById")
+	 public Staff getStaffById(@RequestParam(value="Id")int id) throws IOException {
+		 StaffFunctionsService service=new StaffFunctionsService();
+		 return service.getStaffById(id);
+	 }*/
+	  @RequestMapping(value="/Staffs/insertStaff",method=RequestMethod.POST,consumes=MediaType.APPLICATION_XML_VALUE,produces=MediaType.APPLICATION_XML_VALUE)
+	 public Response insertStaff(@RequestBody Staff student) throws IOException {
+		 StaffFunctionsService service=new StaffFunctionsService();
 		 	Response response=new Response();
 			try {
-				service.insertStudent(student);
+				service.insertStaff(student);
 				response.setResponseCode(200);
 				return response;
 			}  catch (Exception e) {
@@ -56,12 +54,12 @@ public class StudentController {
 			}
 		
 	 }
-	 @RequestMapping(value="/deleteStudentById")
-	 public Response deleteStudentById(@RequestParam(value="Id")int id) throws IOException {
-		 StudentFunctionsService service=new StudentFunctionsService();
+	 /*@RequestMapping(value="/deleteStaffById")
+	 public Response deleteStaffById(@RequestParam(value="Id")int id) throws IOException {
+		 StaffFunctionsService service=new StaffFunctionsService();
 		 	Response response=new Response();
 			try {
-				service.deleteStudent(id);
+				service.deleteStaff(id);
 				response.setResponseCode(200);
 				return response;
 			}  catch (Exception e) {
@@ -72,12 +70,12 @@ public class StudentController {
 				return response;
 			}
 	 }
-	 @RequestMapping(value="/updateStudentById")
-	 public Response updateStudentById(@RequestParam(value="Id")int id,@RequestBody Student student) throws IOException {
-		 StudentFunctionsService service=new StudentFunctionsService();
+	 @RequestMapping(value="/updateStaffById")
+	 public Response updateStaffById(@RequestParam(value="Id")int id,@RequestBody Staff student) throws IOException {
+		 StaffFunctionsService service=new StaffFunctionsService();
 		 	Response response=new Response();
 			try {
-				service.updateStudent(id,student);
+				service.updateStaff(id,student);
 				response.setResponseCode(200);
 				return response;
 			}  catch (Exception e) {
@@ -88,7 +86,7 @@ public class StudentController {
 				return response;
 			} 
 	 }
-	 /*public Address wrapAddressDto(AddressDAO addressDao) {
+	 public Address wrapAddressDto(AddressDAO addressDao) {
 		 Address address=new Address();
 		 address.setAddr1(addressDao.getAddr1());
 		 address.setAddr2(addressDao.getAddr2());
@@ -97,6 +95,6 @@ public class StudentController {
 		 address.setState(addressDao.getState());
 		 address.setPin(addressDao.getPin());
 		 return address;
-	 }*/
-	 
+	 }
+	 */
 }

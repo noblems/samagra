@@ -26,8 +26,8 @@
  
   <insert id="insertStaff" parameterType="Staff" useGeneratedKeys="true" keyProperty="staffId">
    INSERT INTO STAFF(
-             staffType, staffPersonId, addressId,createdDate, updatedDate, activeInd)
-    VALUES(#{staffType}, #{staffPersonId}, #{addressId}, current_date, #{updatedDate}, #{activeInd})
+             staffType, staffPersonId, addressId,divisionId,createdDate, updatedDate, activeInd)
+    VALUES(#{staffType}, #{staffPersonId}, #{addressId},#{divisionId}, current_date, #{updatedDate}, #{activeInd})
   </insert>
  
  <update id="updateStaff" parameterType="Staff">

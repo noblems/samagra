@@ -115,7 +115,7 @@ public List<StudentDAO> getAllStudentsByDivision(int divisionId) throws Exceptio
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			StudentMapper studentMapper=sqlSession.getMapper(StudentMapper.class);
-			studentDao.setUpdatedDate(new Date());
+			studentDao.setStudentId(studentId);
 			studentMapper.updateStudent(studentDao);
 
 			sqlSession.commit();

@@ -23,6 +23,8 @@ public class Staff {
 	private int personId;
 	@JacksonXmlProperty
 	private Address address;
+	@JacksonXmlProperty
+	private int divisionId;
 	public int getStaffId() {
 		return staffId;
 	}
@@ -76,5 +78,11 @@ public class Staff {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	public int getDivisionId() {
+		return divisionId;
+	}
+	public void setDivisionId(int divisionId) {
+		this.divisionId = divisionId;
 	}
 }

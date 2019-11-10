@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import dto.Staff;
 import dto.Student;
+import entity.PersonDAO;
 import entity.StaffDAO;
 import mappers.StaffMapper;
 
@@ -99,6 +101,19 @@ public class StaffService {
 			sqlSession.close();
 		}
 	}
+	public Staff wrapStaffDto(StaffDAO staffDao,PersonDAO personDao) {
+		Staff staff=new Staff();
+		staff.setStaffId(staffDao.getStaffId());
+		staff.setStaffType(staffDao.getStaffType());
+		staff.setFirstName(personDao.getFirstName());
+		staff.setMiddleName(personDao.getMiddleName());
+		staff.setLastName(personDao.getLastName());
+		staff.setDob(personDao.getDob());
+		staff.setSex(personDao.getSex());
+		staff.setDivisionId(staffDao.getDivisionId());
+		return staff;
+	}
+
 	/*public StaffDAO extractStaffFromStudentDto(Student student)throws Exception {
 		StaffDAO staffDao=new StaffDAO();
 		//staffDao.setStaffId(studentDao.getStudentStaffId());
@@ -127,5 +142,12 @@ public class StaffService {
 			e.printStackTrace();
 		}
 	}*/
-	
+	public StaffDAO extractStaffFromStaffDto(Staff staff) {
+		StaffDAO staffDao= new StaffDAO();
+		staffDao.setStaffType(staff.getStaffType());
+		staffDao.setStaffPersonId(staff.getPersonId());
+		staffDao.setAddressId(staff.getAddress().getAddressId());
+		staffDao.setDivisionId(staff.getDivisionId());
+		return staffDao;
+	}
 }
