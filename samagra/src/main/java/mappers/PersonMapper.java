@@ -14,5 +14,6 @@ public interface PersonMapper {
 	 public void updatePerson(PersonDAO person);
 	 
 	 public void deletePerson(Integer personId);
+	 public void getAllPersonByName(PersonDAO person);
 
 }

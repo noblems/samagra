@@ -25,6 +25,9 @@
    <select id="getAllPerson" resultMap="PersonResult">
    SELECT * FROM PERSON WHERE activeInd !=0
   </select> 
+  <select id="getAllPersonByName" resultMap="PersonResult" parameterType="Person">
+   SELECT * FROM PERSON WHERE activeInd !=0 and firstName like #{firstName} or middleName  like #{middleName} or lastName like #{lastName}
+  </select> 
  
   <insert id="insertPerson" parameterType="Person" useGeneratedKeys="true" keyProperty="personId">
    INSERT INTO PERSON(
