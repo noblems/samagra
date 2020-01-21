@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="mappers.DivisionMapper">
+ 
+   <select id="getDivisionById" parameterType="int" resultType="Division">
+     SELECT  *
+     FROM Division 
+     WHERE divisionId = #{divisionId} AND activeInd!=0
+  </select> 
+  
+   <resultMap type="Division" id="DivisionResult">
+    <id property="divisionId" column="divisionId"/>
+    <result property="divisionName" column="divisionName"/>
+    <result property="staffId" column="staffId"/>
+    <result property="divisionDescription" column="divisionDescription"/>
+    <result property="standard" column="standard"/>
+    <result property="createdDate" column="createdDate"/> 
+    <result property="updatedDate" column="updatedDate"/> 
+    <result property="activeInd" column="activeInd"/> 
+   </resultMap>
+ 
+   <select id="getAllDivision" resultMap="DivisionResult">
+   SELECT * FROM DIVISION WHERE activeInd !=0
+  </select> 
+ 
+  <insert id="insertDivision" parameterType="Division" useGeneratedKeys="true" keyProperty="divisionId">
+   INSERT INTO DIVISION(
+             divisionName, staffId, divisionDescription, standard,  createdDate, 
+            updatedDate, activeInd)
+    VALUES(#{divisionName}, #{staffId}, #{divisionDescription}, #{standard}, current_date, #{updatedDate}, #{activeInd})
+  </insert>
+ 
+   <update id="updateDivision" parameterType="Division">
+    UPDATE DIVISION 
+    SET
+     divisionId= #{divisionId},
+     divisionName = #{divisionName},
+     staffId = #{staffId},
+     divisionDescription = #{divisionDescription},
+     standard = #{standard},
+     updatedDate = current_date
+     
+    WHERE divisionId = #{divisionId}
+  </update>
+ 
+  <delete id="deleteDivision" parameterType="java.lang.Integer">
+    UPDATE DIVISION SET updatedDate=current_date,activeInd=0 WHERE divisionId = #{divisionId}
+  </delete> 
+
+</mapper>

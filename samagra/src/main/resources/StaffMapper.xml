@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="mappers.StaffMapper">
+ 
+   <select id="getStaffById" parameterType="int" resultType="Staff">
+     SELECT  *
+     FROM Staff 
+     WHERE staffId = #{staffId} AND activeInd!=0
+  </select> 
+  
+   <resultMap type="Staff" id="StaffResult">
+    <id property="staffId" column="staffId"/>
+    <result property="staffType" column="firstName"/>
+    <result property="staffPersonId" column="staffPersonId"/>
+    <result property="addressId" column="addressId"/>
+    <result property="createdDate" column="createdDate"/> 
+    <result property="updatedDate" column="updatedDate"/> 
+    <result property="activeInd" column="activeInd"/> 
+   </resultMap>
+ 
+   <select id="getAllStaff" resultMap="StaffResult">
+   SELECT * FROM STAFF WHERE activeInd !=0
+  </select> 
+ 
+  <insert id="insertStaff" parameterType="Staff" useGeneratedKeys="true" keyProperty="staffId">
+   INSERT INTO STAFF(
+             staffType, staffPersonId, addressId,divisionId,createdDate, updatedDate, activeInd)
+    VALUES(#{staffType}, #{staffPersonId}, #{addressId},#{divisionId}, current_date, #{updatedDate}, #{activeInd})
+  </insert>
+ 
+ <update id="updateStaff" parameterType="Staff">
+    UPDATE STAFF 
+    SET
+     staffId= #{staffId},
+     staffPersonId = #{staffPersonId},
+     staffType = #{staffType},
+     addressId = #{addressId},
+     updatedDate = current_date
+     
+    WHERE staffId = #{staffId}
+  </update>
+ 
+    <delete id="deleteStaff" parameterType="java.lang.Integer">
+    UPDATE STAFF SET updatedDate=current_date,activeInd=0 WHERE staffId = #{staffId}
+  </delete> 
+
+</mapper>

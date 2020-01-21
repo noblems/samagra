@@ -1,0 +1,234 @@
+{
+  "front-version": "2.21.1",
+  "version": 3,
+  "nodes": [
+    {
+      "type": "Project",
+      "id": "6c51d10a-85f4-4762-ae3c-96d7363c4f36",
+      "lastModified": "2019-10-09T02:26:05.822+05:30",
+      "name": "samagra"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "<Student >\n<registerNumber>1444444</registerNumber>\n<admissionNumber>7878</admissionNumber>\n<firstName>noobs m</firstName>\n<middleName>mfh</middleName>\n<lastName>saji</lastName>\n<DOB>2019-10-06</DOB>\n<sex>Male</sex>\n<personID/>\n<dob>2019-10-06</dob>\n</Student>"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": [
+            {
+              "enabled": true,
+              "name": "Id",
+              "value": "9"
+            }
+          ]
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:8080",
+        "path": "/samagra/deleteStudentById"
+      },
+      "id": "5a8a6286-046d-4cd0-9d67-269daa011f0e",
+      "lastModified": "2019-10-09T02:14:16.036+05:30",
+      "name": "delete  student",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|106085976502124107314"
+      },
+      "parentId": "6c51d10a-85f4-4762-ae3c-96d7363c4f36"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "<Student >\n<registerNumber>1444444</registerNumber>\n<admissionNumber>7878</admissionNumber>\n<firstName>noobs m</firstName>\n<middleName>mfh</middleName>\n<lastName>saji</lastName>\n<DOB>2019-10-06</DOB>\n<sex>Male</sex>\n<personID/>\n<dob>2019-10-06</dob>\n</Student>"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:8080",
+        "path": "/samagra/getAllStudents"
+      },
+      "id": "c9424c69-6f2e-4101-837b-a08d5925cc71",
+      "lastModified": "2019-10-08T18:18:25.017+05:30",
+      "name": "get all  student",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|106085976502124107314"
+      },
+      "parentId": "6c51d10a-85f4-4762-ae3c-96d7363c4f36"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "<Student >\n<registerNumber>1444444</registerNumber>\n<admissionNumber>7878</admissionNumber>\n<firstName>noobs m</firstName>\n<middleName>mfh</middleName>\n<lastName>saji</lastName>\n<DOB>2019-10-06</DOB>\n<sex>Male</sex>\n<personID/>\n<dob>2019-10-06</dob>\n</Student>"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": [
+            {
+              "enabled": true,
+              "name": "Id",
+              "value": "22"
+            }
+          ]
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:8080",
+        "path": "/samagra/getStudentById"
+      },
+      "id": "00cc05c2-edde-4774-9c6a-0645c7570ab0",
+      "lastModified": "2019-10-08T20:08:20.269+05:30",
+      "name": "get student",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|106085976502124107314"
+      },
+      "parentId": "6c51d10a-85f4-4762-ae3c-96d7363c4f36"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "<Student >\n<registerNumber>33333</registerNumber>\n<admissionNumber>5558</admissionNumber>\n<firstName>sujith</firstName>\n<middleName>k</middleName>\n<lastName>Bhai</lastName>\n<dob>2019-11-11</dob>\n<sex>Male</sex>\n<personId/>\n<message>OK</message>\n<address>\n<addr1>ppppp</addr1>\n<addr2>test</addr2>\n<addr3>test</addr3>\n<city>test</city>\n<state>test</state>\n<pin>686008</pin>\n<activeInd/>\n</address>\n</Student>"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:8080",
+        "path": "/samagra/insertStudent"
+      },
+      "id": "c31da6ca-a160-4ce0-8d8a-34e4dff5c0d8",
+      "lastModified": "2019-10-09T01:51:49.907+05:30",
+      "name": "insertStudent",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/xml"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "google-oauth2|106085976502124107314"
+      },
+      "parentId": "6c51d10a-85f4-4762-ae3c-96d7363c4f36"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "\n<item>\n<registerNumber>17777</registerNumber>\n<admissionNumber>5558</admissionNumber>\n<firstName>noble</firstName>\n<middleName>m</middleName>\n<lastName>saji</lastName>\n<dob>2019-11-11</dob>\n<sex>Male</sex>\n<personId>10</personId>\n<message>OK</message>\n<address>\n<addr1>ppppp</addr1>\n<addr2>test</addr2>\n<addr3>test</addr3>\n<city>test</city>\n<state>test</state>\n<pin>686008</pin>\n<activeInd>0</activeInd>\n</address>\n</item>"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": [
+            {
+              "enabled": true,
+              "name": "Id",
+              "value": "10"
+            }
+          ]
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:8080",
+        "path": "/samagra/updateStudentById"
+      },
+      "id": "38ec213c-62ea-4c07-9f47-881cda95ad65",
+      "lastModified": "2019-10-09T02:26:05.824+05:30",
+      "name": "update student",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/xml"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "google-oauth2|106085976502124107314"
+      },
+      "parentId": "6c51d10a-85f4-4762-ae3c-96d7363c4f36"
+    }
+  ]
+}

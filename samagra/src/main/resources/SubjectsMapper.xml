@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="mappers.SubjectsMapper">
+ 
+    <select id="getSubjectsById" parameterType="int" resultType="Subjects">
+     SELECT  *
+     FROM Subjects 
+     WHERE subjectsId = #{subjectsId} AND activeInd!=0
+  </select> 
+  
+   <resultMap type="Subjects" id="SubjectsResult">
+    <id property="subjectsId" column="subjectsId"/>
+    <result property="subjectName" column="subjectName"/>
+    <result property="staffId" column="staffId"/> 
+    <result property="createdDate" column="createdDate"/> 
+    <result property="updatedDate" column="updatedDate"/> 
+    <result property="activeInd" column="activeInd"/> 
+   </resultMap>
+ 
+   <select id="getAllSubjects" resultMap="SubjectsResult">
+   SELECT * FROM SUBJECTS WHERE activeInd !=0
+  </select> 
+ 
+  <insert id="insertSubjects" parameterType="Subjects" useGeneratedKeys="true" keyProperty="subjectsId">
+   INSERT INTO SUBJECTS(
+             subjectName,staffId , createdDate, 
+            updatedDate, activeInd)
+    VALUES(#{subjectName}, #{staffId}, current_date, #{updatedDate}, #{activeInd})
+  </insert>
+ 
+<update id="updateSubjects" parameterType="Subjects">
+    UPDATE SUBJECTS 
+    SET
+     subjectsId= #{subjectsId},
+     subjectName = #{subjectName},
+     staffId = #{staffId},
+     updatedDate = current_date
+     
+    WHERE subjectsId = #{subjectsId}
+  </update>
+ 
+  <delete id="deleteSubjects" parameterType="java.lang.Integer">
+    UPDATE SUBJECTS SET updatedDate=current_date,activeInd=0 WHERE subjectsId = #{subjectsId}
+  </delete>  
+</mapper>
