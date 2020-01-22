@@ -104,6 +104,21 @@ public class PersonService {
 			sqlSession.close();
 		}
 	}
+	public List<PersonDAO> getAllPersonByBirthDate(Date date) throws Exception{
+		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
+		try{
+			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
+			List<PersonDAO> personDao=personMapper.getAllPersonByBirthDate("-"+date.getMonth()+"-"+date.getDate());
+			//sqlSession.commit();
+			return personDao;
+		}catch(Exception e) {
+			//sqlSession.rollback();
+			e.printStackTrace();
+			throw e;
+		}finally{
+			sqlSession.close();
+		}
+	}
 	public PersonDAO extractPersonFromStudentDto(Student student)throws Exception {
 		PersonDAO personDao=new PersonDAO();
 		//personDao.setPersonId(studentDao.getStudentPersonId());

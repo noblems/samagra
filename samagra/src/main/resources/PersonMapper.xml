@@ -4,11 +4,16 @@
  
 <mapper namespace="mappers.PersonMapper">
  
-   <select id="getPersonById" parameterType="int" resultType="Person">
+   <select id="getAllPersonByBirthDate" parameterType="varchar" resultType="Person">
+     SELECT  *
+     FROM Person 
+     WHERE dob like concat('____',#{date}) AND activeInd!=0
+  </select> 
+  <select id="getPersonById" parameterType="int" resultType="Person">
      SELECT  *
      FROM Person 
      WHERE personId = #{personId} AND activeInd!=0
-  </select> 
+  </select>
   
    <resultMap type="Person" id="PersonResult">
     <id property="personId" column="personId"/>
@@ -17,6 +22,8 @@
     <result property="lastName" column="lastName"/>
     <result property="dob" column="dob"/>  
     <result property="sex" column="sex"/> 
+    <result property="emailId" column="emailid"/>
+    <result property="contactNumber" column="contactno"/>
     <result property="createdDate" column="createdDate"/> 
     <result property="updatedDate" column="updatedDate"/> 
     <result property="activeInd" column="activeInd"/> 
@@ -31,9 +38,9 @@
  
   <insert id="insertPerson" parameterType="Person" useGeneratedKeys="true" keyProperty="personId">
    INSERT INTO PERSON(
-             firstName, middleName, lastName, dob, sex, createdDate, 
+             firstName, middleName, lastName, dob, sex,emailid,contactno, createdDate, 
             updatedDate, activeInd)
-    VALUES(#{firstName}, #{middleName}, #{lastName}, #{dob}, #{sex}, current_date, #{updatedDate}, #{activeInd})
+    VALUES(#{firstName}, #{middleName}, #{lastName}, #{dob}, #{sex},#{emailId},#{contactNumber}, current_date, #{updatedDate}, #{activeInd})
   </insert>
  
    <update id="updatePerson" parameterType="Person">

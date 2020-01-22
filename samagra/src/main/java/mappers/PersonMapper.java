@@ -15,5 +15,6 @@ public interface PersonMapper {
 	 
 	 public void deletePerson(Integer personId);
 	 public void getAllPersonByName(PersonDAO person);
+	 public List<PersonDAO> getAllPersonByBirthDate(String date);
 
 }

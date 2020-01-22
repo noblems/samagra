@@ -24,7 +24,14 @@ create table student(studentId serial primary key,
   createdDate varchar default current_date, 
   updatedDate varchar,
   activeInd int default 1)
-
+create table emailtemplates(templateid serial primary key,
+templatename varchar,
+mailcontent varchar,
+keyparam varchar(10),
+templatedescription varchar,
+ createdDate Date  default current_date,
+	  updatedDate Date,
+	activeInd integer default 1)
  create table Marks(
 	markId serial primary key,
 	subjectId integer,
@@ -106,6 +113,7 @@ Person p
 on s.studentPersonId=p.personid
 inner join address a
 on a.addressid=s.studentaddressid
+where s.registerrnumber =456
 where s.studentid=4
 where p.activeind!=0 and s. activeind!=0 and p.personid=23
 delete from student where studentId=5
@@ -120,9 +128,10 @@ update student set divisionid=1 where studentid=4
 select * from address
 select * from Person
 select * from student
-delete  from Student 
-delete from person
-delete from address
+--delete  from Student 
+rollback()
+--delete from person
+--delete from address
 update person set activeINd=1 where personid in (18,19)
 begin transaction
 drop table address;

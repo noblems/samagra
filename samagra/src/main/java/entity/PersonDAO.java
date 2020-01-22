@@ -9,6 +9,8 @@ public class PersonDAO {
 	private String lastName;
 	private String dob;
 	private String sex ;
+	private String contactNumber;
+	private String emailId;
 	private Date createdDate; 
 	private Date updatedDate; 
 	private int activeInd;
@@ -42,6 +44,18 @@ public class PersonDAO {
 	}
 	public void setSex(String sex) {
 		this.sex = sex;
+	}
+	public String getContactNumber() {
+		return contactNumber;
+	}
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+	public String getEmailId() {
+		return emailId;
+	}
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 	public Date getCreatedDate() {
 		return createdDate;
