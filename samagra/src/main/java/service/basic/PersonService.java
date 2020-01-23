@@ -3,6 +3,7 @@ package service.basic;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.sql.Date;
 import java.util.List;
 
@@ -104,11 +105,11 @@ public class PersonService {
 			sqlSession.close();
 		}
 	}
-	public List<PersonDAO> getAllPersonByBirthDate(Date date) throws Exception{
+	public List<PersonDAO> getAllPersonByBirthDate(Date dateOfBirth) throws Exception{
 		SqlSession sqlSession = MyBatisUtil.getSqlSessionFactory().openSession();
 		try{
 			PersonMapper personMapper = sqlSession.getMapper(PersonMapper.class);
-			List<PersonDAO> personDao=personMapper.getAllPersonByBirthDate("-"+date.getMonth()+"-"+date.getDate());
+			List<PersonDAO> personDao=personMapper.getAllPersonByBirthDate("-"+dateOfBirth.getMonth()+"-"+dateOfBirth.getDate());
 			//sqlSession.commit();
 			return personDao;
 		}catch(Exception e) {

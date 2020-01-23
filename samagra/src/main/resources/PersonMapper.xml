@@ -7,7 +7,7 @@
    <select id="getAllPersonByBirthDate" parameterType="varchar" resultType="Person">
      SELECT  *
      FROM Person 
-     WHERE dob like concat('____',#{date}) AND activeInd!=0
+     WHERE dob like concat('____-',#{date}) AND activeInd!=0
   </select> 
   <select id="getPersonById" parameterType="int" resultType="Person">
      SELECT  *

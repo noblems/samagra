@@ -8,13 +8,18 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import freemarker.template.TemplateException;
-import mail.mail.EmailService;
+import mail.EmailService;
+import mail.Mail;
+import service.basic.PersonService;
 
+import java.util.List;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,25 +29,28 @@ public class BirthdayController {
 	String signature="thanks and regards.....\r\n<br>" + 
 			"<b>NOBLE M SAJI</b>";
 	Mail mail = null;
-	private static Logger log = LoggerFactory.getLogger(Application.class);
+	private static Logger log = LoggerFactory.getLogger(BirthdayController.class);
 
     @Autowired
     private EmailService emailService;
 	 @RequestMapping(value="/birthday")
-	 public void findAllBirthDay() {
-	    	LocalDate dateOfBirth = LocalDate.now();
-	    	PersonService ps = PersonService();
-	    	List<PersonDAO> personDao=ps.getAllPersonByBirthDate(dateOfBirth);
-	   }
-	
-    
-
-  
-   
     public void findAllBirthDay() {
-    	LocalDate dateOfBirth = LocalDate.now();
-    	PersonService ps = PersonService();
-    	List<PersonDAO> personDao=ps.getAllPersonByBirthDate(dateOfBirth);
+    	Date dateOfBirth = new Date();
+    	PersonService ps = new PersonService();
+    	try {
+			List<PersonDAO> personDao=ps.getAllPersonByBirthDate((java.sql.Date) dateOfBirth);
+			if(personDao!=null) {
+				for(PersonDAO p:personDao) {
+					sendEmail(p.getFirstName(),p.getLastName(),p.getEmailId());
+					System.out.println(p.getFirstName()+p.getLastName()+p.getEmailId());
+					log.info("sent mail tom employee");
+				}
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     public void sendEmail(String firstName,String LastName,String toAddress) throws MessagingException, IOException, TemplateException {
     	Map model = new HashMap();

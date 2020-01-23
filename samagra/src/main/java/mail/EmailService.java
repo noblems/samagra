@@ -1,6 +1,11 @@
-package utilities.mail;
+package mail;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -25,7 +30,7 @@ public class EmailService {
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
 
-        helper.addAttachment("logo.png", new ClassPathResource("memorynotfound-logo.png"));
+        helper.addAttachment("image.jpg", new ClassPathResource("birthday1.jpg"));
 
         Template t = freemarkerConfig.getTemplate("email-template.ftl");
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, mail.getModel());
@@ -36,6 +41,7 @@ public class EmailService {
         helper.setFrom(mail.getFrom());
 
         emailSender.send(message);
+        System.out.println("sent email");
     }
 
 }

@@ -4,6 +4,9 @@
 --create table address(addressId serial primary key, addressPersonId integer ,Addr1 varchar,Addr2 varchar,Addr3 varchar, city varchar, state varchar,pin varchar,createdDate varchar, updatedDate varchar,activeInd int)
 
 --Student table for first service
+	create table person(personId Serial primary key,firstName varchar, middleName varchar,lastName varchar,DOB varchar, sex varchar(7),emailid varchar,contactno varchar(15),createdDate Date  default current_date,
+	  updatedDate Date,
+	activeInd integer default 1)
 --create table Staff (
 	staffId serial primary key,
 	staffType varchar,
