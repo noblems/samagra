@@ -18,6 +18,10 @@ import service.functionalities.StudentFunctionsService;
 
 @RestController
 public class StudentController {
+	@RequestMapping(value="/")
+	 public String receive() throws IOException {
+		 return "service is working fine";
+	 }
 	 @RequestMapping(value="/Students")
 	 public String receiveAll() throws IOException {
 		 return "student service is working fine";

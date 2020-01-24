@@ -34,7 +34,7 @@ public class BirthdayController {
     @Autowired
     private EmailService emailService;
 	 @RequestMapping(value="/birthday")
-    public void findAllBirthDay() {
+    public String findAllBirthDay() {
     	Date dateOfBirth = new Date();
     	PersonService ps = new PersonService();
     	try {
@@ -44,12 +44,14 @@ public class BirthdayController {
 					sendEmail(p.getFirstName(),p.getLastName(),p.getEmailId());
 					System.out.println(p.getFirstName()+p.getLastName()+p.getEmailId());
 					log.info("sent mail tom employee");
+					
 				}
 			}
-			
+			return "sent mail tom employee";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "some erro";
 		}
     }
     public void sendEmail(String firstName,String LastName,String toAddress) throws MessagingException, IOException, TemplateException {

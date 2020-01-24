@@ -19,6 +19,6 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         <property name="prefix" value="/"></property>  
         <property name="suffix" value=".jsp"></property>          
      </bean>  
-     
+  <bean id="EmailService" class="mail.EmailService" autowire="byName"></bean>   
       
 </beans>  
