@@ -2,8 +2,10 @@ package entity;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+@Repository
 public class AddressDAO {
 	
 	private int addressId;

@@ -2,6 +2,8 @@ package entity;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Repository;
+@Repository
 public class StaffDAO {
 	private int staffId;
 	private String staffType;

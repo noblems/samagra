@@ -26,26 +26,14 @@ import java.util.Map;
 import javax.mail.MessagingException;
 @RestController
 public class BirthdayController {
-	String signature="thanks and regards.....\r\n<br>" + 
-			"<b>NOBLE M SAJI</b>";
-	Mail mail = null;
-	private static Logger log = LoggerFactory.getLogger(BirthdayController.class);
-
-    @Autowired
-    private EmailService emailService;
-	 @RequestMapping(value="/birthday")
+	@RequestMapping(value="/birthday")
     public String findAllBirthDay() {
     	Date dateOfBirth = new Date();
     	PersonService ps = new PersonService();
     	try {
 			List<PersonDAO> personDao=ps.getAllPersonByBirthDate((java.sql.Date) dateOfBirth);
 			if(personDao!=null) {
-				for(PersonDAO p:personDao) {
-					sendEmail(p.getFirstName(),p.getLastName(),p.getEmailId());
-					System.out.println(p.getFirstName()+p.getLastName()+p.getEmailId());
-					log.info("sent mail tom employee");
-					
-				}
+				
 			}
 			return "sent mail tom employee";
 		} catch (Exception e) {
@@ -54,21 +42,5 @@ public class BirthdayController {
 			return "some erro";
 		}
     }
-    public void sendEmail(String firstName,String LastName,String toAddress) throws MessagingException, IOException, TemplateException {
-    	Map model = new HashMap();
-        model.put("firstname",firstName);
-        model.put("lastname",LastName);
-        mail.setTo(toAddress);
-        //model.put("location", "Belgium");
-        model.put("signature", signature);
-        model.put("filename","birthday1.jpg");
-        mail.setModel(model);
-
-        emailService.sendSimpleMessage(mail);
-    }
-    public void mailSetup() {
-    	mail = new Mail();
-        mail.setFrom("noblemsb@gmail.com");
-        mail.setSubject("Happy Birthday");
-    }
+ 
 }
