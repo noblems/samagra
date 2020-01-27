@@ -4,7 +4,7 @@
  
 <mapper namespace="mappers.PersonMapper">
  
-   <select id="getAllPersonByBirthDate" parameterType="varchar" resultType="Person">
+   <select id="getAllPersonByBirthDate" parameterType="String" resultType="Person">
      SELECT  *
      FROM Person 
      WHERE dob like concat('____-',#{date}) AND activeInd!=0
